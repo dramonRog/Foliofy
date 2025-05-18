@@ -37,7 +37,91 @@
             </nav>
         </div>
     </header>
+
     @RenderBody()
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-contacts">
+                <a href="#" class="logo-link"><img class="logo" src="~/assets/images/icons/logo.svg" alt="logo"></a>
+                <div class="contact-links-list">
+                    <a href="#" class="contact-link"><img src="~/assets/images/icons/footer/twitter.svg" alt="twitter"></a>
+                    <a href="#" class="contact-link"><img src="~/assets/images/icons/footer/facebook.svg" alt="facebook"></a>
+                    <a href="#" class="contact-link"><img src="~/assets/images/icons/footer/instagram.svg" alt="instagram"></a>
+                    <a href="#" class="contact-link"><img src="~/assets/images/icons/footer/likedin.svg" alt="likedin"></a>
+                </div>
+            </div>
+            <div class="link-part">
+                <div class="footer-links">
+                    <div class="link-list">
+                        <span class="section">Platform</span>
+                        <ul class="section-links">
+                            <li class="link-item"><a href="#">Portfolio</a></li>
+                            <li class="link-item"><a href="#">Features</a></li>
+                            <li class="link-item"><a href="#">Pricing</a></li>
+                            <li class="link-item"><a href="#">Testimonials</a></li>
+                        </ul>
+                    </div>
+                    <div class="link-list">
+                        <span class="section">Resources</span>
+                        <ul class="section-links">
+                            <li class="link-item"><a href="#">Blog</a></li>
+                            <li class="link-item"><a href="#">Help Center</a></li>
+                            <li class="link-item"><a href="#">Guides</a></li>
+                            <li class="link-item"><a href="#">Community</a></li>
+                        </ul>
+                    </div>
+                    <div class="link-list">
+                        <span class="section">Company</span>
+                        <ul class="section-links">
+                            <li class="link-item"><a href="#">About</a></li>
+                            <li class="link-item"><a href="#">Contact</a></li>
+                            <li class="link-item"><a href="#">Press</a></li>
+                            <li class="link-item"><a href="#">Careers</a></li>
+                        </ul>
+                    </div>
+                    <div class="link-list">
+                        <span class="section">Support</span>
+                        <ul class="section-links">
+                            <li class="link-item"><a href="#">FAQs</a></li>
+                            <li class="link-item"><a href="#">Report an Issue</a></li>
+                            <li class="link-item"><a href="#">Account Help</a></li>
+                            <li class="link-item"><a href="#">Submit Feedback</a></li>
+                        </ul>
+                    </div>
+                    <div class="link-list">
+                        <span class="section">Legal</span>
+                        <ul class="section-links">
+                            <li class="link-item"><a href="#">Terms of Service</a></li>
+                            <li class="link-item"><a href="#">Privacy Policy</a></li>
+                            <li class="link-item"><a href="#">Cookie Settings</a></li>
+                            <li class="link-item"><a href="#">Licensing</a></li>
+                        </ul>
+                    </div>
+                    <div class="link-list">
+                        <span class="section">For creators</span>
+                        <ul class="section-links">
+                            <li class="link-item"><a href="#">Submit a project</a></li>
+                            <li class="link-item"><a href="#">Creator Guideslines</a></li>
+                            <li class="link-item"><a href="#">Tips & Tutorials</a></li>
+                            <li class="link-item"><a href="#">Collaboration board</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="connection">
+                    <form class="connection-form">
+                        <div class="connection-field">
+                            <label for="connectEmail">Stay connected</label>
+                            <input id="connectEmail" type="text" placeholder="Enter your email">
+                        </div>
+                        <button class="connection-btn">Subscribe</button>
+                    </form>
+                    <img class="connection-img" src="~/assets/images/img/footer-illustration.png" alt="illustration">
+                </div>
+            </div>
+            <p class="footer-rights">© 2024 Foliofy. All rights reserved. Built with creativity and care for designers everywhere.</p>
+        </div>
+    </footer>
 
     <script src="~/assets/js/header.js"></script>
     @RenderSection("Scripts", required: false)
