@@ -1,3 +1,548 @@
 ﻿@page "/"
 @model homeModel
 
+@section Styles {
+    <link rel="stylesheet" href="~/home/home.css" />
+}
+
+<main class="main">
+    <section class="start">
+        <div class="container">
+            <div class="start__content">
+                <h1 class="start__content-title"><span class="title-word-wrapper">Share</span> your design with the world</h1>
+                <p class="start__content-text">Share your design ideas, get inspired by others, and take on real creative requests from the community.</p>
+                <a class="start__content-btn" href="#">Get Started</a>
+            </div>
+            <div class="start-illustration">
+                <img src="~/assets/images/img/getStarted/illustration.jpg">
+            </div>
+        </div>
+    </section>
+
+    <section class="creativeProcess">
+        <div class="container">
+            <h2 class="title"><span class="title-word-wrapper">Start</span> your creative process</h2>
+            <div class="steps">
+                <div class="creative-step active">
+                    <div class="creative-toggle">
+                        <div class="creative-content">
+                            <div class="image-wrapper">
+                                <img src="~/assets/images/icons/creativeProcess/profile.svg" alt="person-icon">
+                            </div>
+                            <div class="creative-description">
+                                <h3>Create your profile</h3>
+                            </div>
+                        </div>
+                        <div class="plus-icon">
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <p>Set up your designer page with a photo, short bio, and links. This is your space to show your identify and style - your personal creative hub.</p>
+                </div>
+                <div class="creative-step">
+                    <div class="creative-toggle">
+                        <div class="creative-content">
+                            <div class="image-wrapper">
+                                <img src="~/assets/images/icons/creativeProcess/upload.svg" alt="upload-icon">
+                            </div>
+                            <div class="creative-description">
+                                <h3>Upload a project</h3>
+                            </div>
+                        </div>
+                        <div class="plus-icon">
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <p>Showcase your creative work by uploading designs, illustrations, or prototypes. Let the world see what you’re capable of.</p>
+                </div>
+                <div class="creative-step">
+                    <div class="creative-toggle">
+                        <div class="creative-content">
+                            <div class="image-wrapper">
+                                <img src="~/assets/images/icons/creativeProcess/search.svg" alt="search-icon">
+                            </div>
+                            <div class="creative-description">
+                                <h3>Get discovered</h3>
+                            </div>
+                        </div>
+                        <div class="plus-icon">
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <p>Make your profile and projects visible to the community. Grow your presence and attract attention from creatives and collaborators.</p>
+                </div>
+                <div class="creative-step">
+                    <div class="creative-toggle">
+                        <div class="creative-content">
+                            <div class="image-wrapper">
+                                <img src="~/assets/images/icons/creativeProcess/comment.svg" alt="comment-icon">
+                            </div>
+                            <div class="creative-description">
+                                <h3>Connect and interact</h3>
+                            </div>
+                        </div>
+                        <div class="plus-icon">
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <p>Engage with other designers through likes, comments, and follows. Build meaningful relationships in the creative space.</p>
+                </div>
+                <div class="creative-step">
+                    <div class="creative-toggle">
+                        <div class="creative-content">
+                            <div class="image-wrapper">
+                                <img src="~/assets/images/icons/creativeProcess/accept.svg" alt="suitcase-icon">
+                            </div>
+                            <div class="creative-description">
+                                <h3>Accept requests</h3>
+                            </div>
+                        </div>
+                        <div class="plus-icon">
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <p>Receive and manage design requests from clients or peers. Turn your creative skills into opportunities and collaborations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="madeFor">
+        <div class="container">
+            <h2 class="title"><span class="title-word-wrapper">Made</span> for creative minds</h2>
+            <div class="madeFor-content">
+                <div class="content-item">
+                    <img src="~/assets/images/icons/creativeMinds/lamp.svg" alt="lamp-icon" class="content__item-img">
+                    <div class="content__item-description">
+                        <h3 class="content__item-title">Creative-first by design</h3>
+                        <p class="content__item-text">Not just a portfolio - a place to experiment, play, and be seen</p>
+                    </div>
+                </div>
+                <div class="content-item">
+                    <img src="~/assets/images/icons/creativeMinds/arrow.svg" alt="arrow-icon" class="content__item-img">
+                    <div class="content__item-description">
+                        <h3 class="content__item-title">Grow your audience and income</h3>
+                        <p class="content__item-text">Build recognition, grow your following, and get real projects</p>
+                    </div>
+                </div>
+                <div class="content-item">
+                    <img src="~/assets/images/icons/creativeMinds/people.svg" alt="people-icon" class="content__item-img">
+                    <div class="content__item-description">
+                        <h3 class="content__item-title">A true community design</h3>
+                        <p class="content__item-text">You are not just uploading, you are connecting with people who get it</p>
+                    </div>
+                </div>
+                <div class="content-item">
+                    <img src="~/assets/images/icons/creativeMinds/pen.svg" alt="pen-icon" class="content__item-img">
+                    <div class="content__item-description">
+                        <h3 class="content__item-title">Inspiration flows both ways</h3>
+                        <p class="content__item-text">Browse others' work, remix ideas, save what speaks to you</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="creativeKinds">
+        <div class="container">
+            <h2 class="title"><span class="title-word-wrapper">Build</span> for every kind of creative</h2>
+            <div class="creative-types">
+                <div class="type">
+                    <div class="type-content">
+                        <h3>For Visual Artists</h3>
+                        <p>
+                            Show off your illustrations, artworks, or concept pieces.
+                            Share your style, get inspired, and build a portfolio that feels like you.
+                            Connect with fellow artists, receive feedback, and explore creative perspectives.
+                            Whether you're experimenting or showcasing your best work - there's space for it all.
+                        </p>
+                    </div>
+                    <img src="~/assets/images/icons/creativeKinds/drawing.svg" alt="drawing-icon">
+                </div>
+                <div class="type">
+                    <div class="type-content">
+                        <h3>For UI/UX Designers</h3>
+                        <p>
+                            Upload sleek interfaces, wireframes, and full-blown case studies.
+                            Let others interact with your process, not just your pixels.
+                            Highlight the thinking behind your designs and bring your concepts to life.
+                            Collaborate, iterate, and showcase projects that reflect real-world impact.
+                        </p>
+                    </div>
+                    <img src="~/assets/images/icons/creativeKinds/phone.svg" alt="phone-icon">
+                </div>
+                <div class="type">
+                    <div class="type-content">
+                        <h3>For Freelancers & Creators</h3>
+                        <p>
+                            Turn your portfolio into a landing page for your work.
+                            Add contact buttons, get design requests, and grow your creative brand.
+                            Use call-to-actions to land new gigs and make your work discoverable.
+                            From client outreach to project hand-off - do it all in one place.
+                        </p>
+                    </div>
+                    <img src="~/assets/images/icons/creativeKinds/suitcase.svg" alt="suitcase-icon">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="popular-works">
+        <div class="container">
+            <h2 class="title"><span class="title-word-wrapper">Popular</span> Design Work</h2>
+            <div class="slider">
+                <div class="slider-container">
+                    <div class="slider-item">
+                        <img src="~/assets/images/img/projects/project-img.jpg" alt="project-img" class="project-img">
+                        <div class="project-name">
+                            <h3>Minimalist Poster Series</h3>
+                            <p>by Studio Element</p>
+                        </div>
+                        <div class="tags">
+                            <span>#Poster</span>
+                            <span>#Minimalism</span>
+                            <span>#PrintDesign</span>
+                        </div>
+                        <div class="stat">
+                            <div class="likes">
+                                <img src="~/assets/images/icons/slider/like.svg" alt="like-icon">
+                                <span class="count">1,254</span>
+                            </div>
+                            <div class="comments">
+                                <img src="~/assets/images/icons/slider/comment.svg" alt="comment-icon">
+                                <span class="count">41</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slider-item">
+                        <img src="~/assets/images/img/projects/project-img.jpg" alt="project-img" class="project-img">
+                        <div class="project-name">
+                            <h3>Minimalist Poster Series</h3>
+                            <p>by Studio Element</p>
+                        </div>
+                        <div class="tags">
+                            <span>#Poster</span>
+                            <span>#Minimalism</span>
+                            <span>#PrintDesign</span>
+                        </div>
+                        <div class="stat">
+                            <div class="likes">
+                                <img src="~/assets/images/icons/slider/like.svg" alt="like-icon">
+                                <span class="count">1,254</span>
+                            </div>
+                            <div class="comments">
+                                <img src="~/assets/images/icons/slider/comment.svg" alt="comment-icon">
+                                <span class="count">42</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slider-item">
+                        <img src="~/assets/images/img/projects/project-img.jpg" alt="project-img" class="project-img">
+                        <div class="project-name">
+                            <h3>Minimalist Poster Series</h3>
+                            <p>by Studio Element</p>
+                        </div>
+                        <div class="tags">
+                            <span>#Poster</span>
+                            <span>#Minimalism</span>
+                            <span>#PrintDesign</span>
+                        </div>
+                        <div class="stat">
+                            <div class="likes">
+                                <img src="~/assets/images/icons/slider/like.svg" alt="like-icon">
+                                <span class="count">1,254</span>
+                            </div>
+                            <div class="comments">
+                                <img src="~/assets/images/icons/slider/comment.svg" alt="comment-icon">
+                                <span class="count">43</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slider-item">
+                        <img src="~/assets/images/img/projects/project-img.jpg" alt="project-img" class="project-img">
+                        <div class="project-name">
+                            <h3>Minimalist Poster Series</h3>
+                            <p>by Studio Element</p>
+                        </div>
+                        <div class="tags">
+                            <span>#Poster</span>
+                            <span>#Minimalism</span>
+                            <span>#PrintDesign</span>
+                        </div>
+                        <div class="stat">
+                            <div class="likes">
+                                <img src="~/assets/images/icons/slider/like.svg" alt="like-icon">
+                                <span class="count">1,254</span>
+                            </div>
+                            <div class="comments">
+                                <img src="~/assets/images/icons/slider/comment.svg" alt="comment-icon">
+                                <span class="count">44</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slider-item">
+                        <img src="~/assets/images/img/projects/project-img.jpg" alt="project-img" class="project-img">
+                        <div class="project-name">
+                            <h3>Minimalist Poster Series</h3>
+                            <p>by Studio Element</p>
+                        </div>
+                        <div class="tags">
+                            <span>#Poster</span>
+                            <span>#Minimalism</span>
+                            <span>#PrintDesign</span>
+                        </div>
+                        <div class="stat">
+                            <div class="likes">
+                                <img src="~/assets/images/icons/slider/like.svg" alt="like-icon">
+                                <span class="count">1,254</span>
+                            </div>
+                            <div class="comments">
+                                <img src="~/assets/images/icons/slider/comment.svg" alt="comment-icon">
+                                <span class="count">45</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-navigation">
+                    <img src="~/assets/images/icons/slider/arrow.svg" alt="arrow-icon" class="left-arrow">
+                    <div class="dot-panel">
+                        <span class="dot active"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                    <img src="~/assets/images/icons/slider/arrow.svg" alt="arrow-icon" class="right-arrow">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="comments">
+        <div class="container">
+            <h2 class="title"><span class="title-word-wrapper">Hear</span> from our designers</h2>
+            <div class="comment-container">
+                <div class="comment__item">
+                    <div class="comment__content">
+                        <div class="comment__content-author">
+                            <img src="~/assets/images/icons/comments/anna.svg" alt="marcus-img" class="author-img">
+                            <img src="~/assets/images/icons/comments/quotes.svg" alt="quotes-img" class="quotes-img">
+                            <div class="author__initials">
+                                <h3 class="author-name">Anna Colis</h3>
+                                <p class="author-type">Visual Designer</p>
+                            </div>
+                        </div>
+                        <div class="comment-text">
+                            <h3 class="comment-title">Finally, a space that feels like home</h3>
+                            <p class="comment">I finally found a platform where my designs are not just stored, but appreciated. It's easy to express myself and find inspiration among other designers.</p>
+                            <div class="comment-grade">
+                                <div class="star-wrapper"><img src="~/assets/images/icons/comments/star.svg" alt="star-icon" class="star"></div>
+                                <div class="star-wrapper"><img src="~/assets/images/icons/comments/star.svg" alt="star-icon" class="star"></div>
+                                <div class="star-wrapper"><img src="~/assets/images/icons/comments/star.svg" alt="star-icon" class="star"></div>
+                                <div class="star-wrapper"><img src="~/assets/images/icons/comments/star.svg" alt="star-icon" class="star"></div>
+                                <div class="star-wrapper"><img src="~/assets/images/icons/comments/star.svg" alt="star-icon" class="star"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comment__rating">
+                        <div class="member">
+                            <span class="count">80K+</span>
+                            <span>members</span>
+                        </div>
+                        <div class="rating">
+                            <span class="number">4.8</span>
+                            <span>rating</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="comment__item">
+                    <div class="comment__content">
+                        <div class="comment__content-author">
+                            <img src="~/assets/images/icons/comments/nicola.svg" alt="nicola-img" class="author-img">
+                            <img src="~/assets/images/icons/comments/quotes.svg" alt="quotes-img" class="quotes-img">
+                            <div class="author__initials">
+                                <h3 class="author-name">Nicola Rivera</h3>
+                                <p class="author-type">Illustrator & Concept Artist</p>
+                            </div>
+                        </div>
+                        <div class="comment-text">
+                            <h3 class="comment-title">This platform sparked my creative energy</h3>
+                            <p class="comment">I've been part of many platforms, but Foliofy is different. It's intuitive, visually inspiring, and filled with artists who truly care. I feel more motivated than ever to keep creating.</p>
+                            <div class="comment-grade">
+                                <div class="star-wrapper"><img src="~/assets/images/icons/comments/star.svg" alt="star-icon" class="star"></div>
+                                <div class="star-wrapper"><img src="~/assets/images/icons/comments/star.svg" alt="star-icon" class="star"></div>
+                                <div class="star-wrapper"><img src="~/assets/images/icons/comments/star.svg" alt="star-icon" class="star"></div>
+                                <div class="star-wrapper"><img src="~/assets/images/icons/comments/star.svg" alt="star-icon" class="star"></div>
+                                <div class="star-wrapper"><img src="~/assets/images/icons/comments/star.svg" alt="star-icon" class="star"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comment__rating">
+                        <div class="member">
+                            <span class="count">62K+</span>
+                            <span>members</span>
+                        </div>
+                        <div class="rating">
+                            <span class="number">4.9</span>
+                            <span>rating</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="comment__item">
+                    <div class="comment__content">
+                        <div class="comment__content-author">
+                            <img src="~/assets/images/icons/comments/marcus.svg" alt="marcus-img" class="author-img">
+                            <img src="~/assets/images/icons/comments/quotes.svg" alt="quotes-img" class="quotes-img">
+                            <div class="author__initials">
+                                <h3 class="author-name">Marcus Lee</h3>
+                                <p class="author-type">Freelancer UI/UX Designer</p>
+                            </div>
+                        </div>
+                        <div class="comment-text">
+                            <h3 class="comment-title">A game-changer for freelance work</h3>
+                            <p class="comment">From showcasing my wireframes to getting actual project requests - it's all here. The way Foliofy helps designers grow their personal brand is seriously impressive.</p>
+                            <div class="comment-grade">
+                                <div class="star-wrapper"><img src="~/assets/images/icons/comments/star.svg" alt="star-icon" class="star"></div>
+                                <div class="star-wrapper"><img src="~/assets/images/icons/comments/star.svg" alt="star-icon" class="star"></div>
+                                <div class="star-wrapper"><img src="~/assets/images/icons/comments/star.svg" alt="star-icon" class="star"></div>
+                                <div class="star-wrapper"><img src="~/assets/images/icons/comments/star.svg" alt="star-icon" class="star"></div>
+                                <div class="star-wrapper"><img src="~/assets/images/icons/comments/star.svg" alt="star-icon" class="star"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comment__rating">
+                        <div class="member">
+                            <span class="count">45K+</span>
+                            <span>members</span>
+                        </div>
+                        <div class="rating">
+                            <span class="number">4.7</span>
+                            <span>rating</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="comment__item">
+                    <div class="comment__content">
+                        <div class="comment__content-author">
+                            <img src="~/assets/images/icons/comments/priya.svg" alt="priya-img" class="author-img">
+                            <img src="~/assets/images/icons/comments/quotes.svg" alt="quotes-img" class="quotes-img">
+                            <div class="author__initials">
+                                <h3 class="author-name">Priya Nand</h3>
+                                <p class="author-type">Motion Graphics Artist</p>
+                            </div>
+                        </div>
+                        <div class="comment-text">
+                            <h3 class="comment-title">The community here feels real</h3>
+                            <p class="comment">It's not just likes and views - it's people asking questions, giving thoughtfull feedback, and building connections. That's what makes this place special to me.</p>
+                            <div class="comment-grade">
+                                <div class="star-wrapper"><img src="~/assets/images/icons/comments/star.svg" alt="star-icon" class="star"></div>
+                                <div class="star-wrapper"><img src="~/assets/images/icons/comments/star.svg" alt="star-icon" class="star"></div>
+                                <div class="star-wrapper"><img src="~/assets/images/icons/comments/star.svg" alt="star-icon" class="star"></div>
+                                <div class="star-wrapper"><img src="~/assets/images/icons/comments/star.svg" alt="star-icon" class="star"></div>
+                                <div class="star-wrapper"><img src="~/assets/images/icons/comments/star.svg" alt="star-icon" class="star"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comment__rating">
+                        <div class="member">
+                            <span class="count">35K+</span>
+                            <span>members</span>
+                        </div>
+                        <div class="rating">
+                            <span class="number">4.85</span>
+                            <span>rating</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="register" id="join">
+        <div class="container">
+            <h2 class="register-title"><span class="title-word-wrapper">Join</span> the creative movement</h2>
+            <p class="register-text">Sign up and start sharing your design journey with a community that gets it.</p>
+            <div class="modal-content">
+                <form method="post" class="register-form" novalidate>
+                    @Html.AntiForgeryToken() <!-- It is against CSRF attacks. it creates input with name __RequestVerificationToken type hidden, value will very long and random. We must send this token manually in js -->
+                    <div class="register-field">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" placeholder="Enter username">
+                    </div>
+                    <div class="register-field">
+                        <label for="email">Email address</label>
+                        <input type="email" id="email" placeholder="Enter your email address">
+                    </div>
+                    <div class="register-field">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Enter password">
+                    </div>
+                    <div class="register-field">
+                        <label for="repeatPassword">Repeat Password</label>
+                        <input type="password" id="repeatPassword" placeholder="Repeat Password">
+                    </div>
+
+                    <div class="register-field select">
+                        <span>Creative Type</span>
+                        <div class="creative-type">
+                            <div class="selected">
+                                <span class="selected-value">I am joining as a...</span>
+                                <img class="triangle-img" src="~/assets/images/icons/register/triangle.svg" alt="triangle">
+                            </div>
+                            <ul class="select-options">
+                                <li class="register-option">
+                                    <div class="img-wrapper">
+                                        <img src="~/assets/images/icons/creativeKinds/drawing.svg" alt="drawing" class="option-img">
+                                    </div>
+                                    <span>Visual Artist</span>
+                                </li>
+                                <li class="register-option">
+                                    <div class="img-wrapper">
+                                        <img src="~/assets/images/icons/creativeKinds/phone.svg" alt="drawing" class="option-img">
+                                    </div>
+                                    <span>UI/UX Designer</span>
+                                </li>
+                                <li class="register-option">
+                                    <div class="img-wrapper">
+                                        <img src="~/assets/images/icons/creativeMinds/pen.svg" alt="drawing" class="option-img">
+                                    </div>
+                                    <span>Content Creator</span>
+                                </li>
+                                <li class="register-option">
+                                    <div class="img-wrapper">
+                                        <img src="~/assets/images/icons/creativeProcess/accept.svg" alt="drawing" class="option-img">
+                                    </div>
+                                    <span>Freelancer / Consultant</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <input type="hidden" name="creativeType" id="creativeType">
+                    </div>
+                    <div class="register-field">
+                        <div class="privacy">
+                            <span class="custom-checkbox">
+                                <img src="~/assets/images/icons/register/daw.svg" alt="daw">
+                            </span>
+                            <span class="privacy-text">I agree to the Terms and Privacy Policy</span>
+                        </div>
+                    </div>
+                    <button class="register-btn" type="submit">Sign Up</button>
+                </form>
+                <div class="register-illustration">
+                    <img src="~/assets/images/img/register/illustration.png" alt="register illustration">
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+@section Scripts {
+    <script src="~/home/js/steps.js"></script>
+    <script src="~/home/js/slider.js"></script>
+    <script src="~/home/js/observer.js"></script>
+}
