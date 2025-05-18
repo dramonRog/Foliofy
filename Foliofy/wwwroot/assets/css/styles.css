@@ -332,6 +332,197 @@ input::placeholder {
     margin-top: 32px;
 }
 
+.modal-content {
+    margin-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    gap: 75px;
+    align-items: center;
+    padding: 20px;
+    border-radius: 32px;
+}
+
+.modal-content:not(.modal-content.modal) {
+    background-color: #001F29;
+}
+
+.register-text {
+    padding: 10px;
+    font-weight: 500;
+    font-size: clamp(1rem, 0.643rem + 1.14vw, 1.5rem);
+}
+
+.register-form {
+    flex: 0 1 472px;
+}
+
+.register-illustration {
+    flex: 0 1 auto;
+}
+
+.register-illustration img {
+    width: 100%;
+}
+
+.register-field {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 15px;
+}
+
+.register-field label, .register-field input::placeholder {
+    font-size: clamp(0.875rem, 0.676rem + 0.64vw, 1.25rem);
+    font-weight: 500;
+}
+
+.register-field.select {
+    cursor: pointer;
+}
+
+.register-field .privacy {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.register-field.error input, .register-field.error .selected {
+    border-color: #510000;
+}
+
+.register-field.error .custom-checkbox {
+    background-color: #510000;
+}
+
+.creative-type {
+    position: relative;
+}
+
+.selected {
+    padding: 12px 10px;
+    border-radius: 8px 8px 0 0;
+    border: 1px solid #004051;
+    background-color: #00161E;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.selected-value {
+    opacity: 0.35;
+}
+
+.selected-value.chosen {
+    opacity: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-right: 12px;
+    color: #56A4AC;
+}
+
+.triangle-img {
+    transform: rotate(-90deg);
+    transition: transform .3s ease-in-out;
+}
+
+.creative-type.clicked .triangle-img {
+    transform: rotate(0);
+}
+
+.select-options {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 10px;
+    border-radius: 0 0 8px 8px;
+    border: 1px solid #004051;
+    border-top: none;
+    position: absolute;
+    background-color: #001720;
+    width: 100%;
+    transform: scaleY(0);
+    transition: transform .2s ease-in-out;
+    z-index: 1;
+    transform-origin: top;
+}
+
+.creative-type.clicked .select-options {
+    transform: scaleY(1);
+}
+
+.register-option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0.7;
+    padding-right: 12px;
+    transition: opacity .3s ease-in-out;
+    width: 100%;
+}
+
+.register-option span {
+    font-size: clamp(0.875rem, 0.676rem + 0.64vw, 1.25rem);
+}
+
+.register-option .img-wrapper {
+    width: 44px;
+    text-align: center;
+}
+
+.option-img {
+    height: 35px;
+    margin: 0 auto;
+}
+
+.register-option::after {
+    content: '';
+    position: absolute;
+    top: calc(100% + 2px);
+    width: 80%;
+    height: 2px;
+    background-color: #004051;
+    transform: scale(0);
+    transition: transform .5s ease-in-out;
+    transform-origin: right;
+}
+
+.custom-checkbox {
+    position: relative;
+    display: block;
+    min-width: 20px;
+    height: 20px;
+    border-radius: 2px;
+    background-color: #004051;
+    cursor: pointer;
+}
+
+.custom-checkbox img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity .2s ease-in-out;
+}
+
+.custom-checkbox.checked img {
+    opacity: 1;
+}
+
+.register-btn {
+    margin-top: 12px;
+    width: 100%;
+}
+
+.error-message {
+    color: #c31717;
+    margin-bottom: 5px;
+}
+
 @media(max-width: 768px) {
     .burger-menu {
         display: block;
@@ -421,6 +612,20 @@ input::placeholder {
     .footer-links {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .modal-content {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .modal-content .register-illustration {
+        width: 80%;
+        order: -1;
+    }
+
+    .register-form, .login-form {
+        width: 100%;
+    }
 }
 
 @media(hover: hover) {
@@ -435,5 +640,14 @@ input::placeholder {
 
     .profile__toggle-link:hover {
         opacity: 1;
+    }
+
+    .register-option:hover {
+        opacity: 1;
+    }
+
+    .register-option:hover::after {
+        transform: scale(1);
+        transform-origin: left;
     }
 }
