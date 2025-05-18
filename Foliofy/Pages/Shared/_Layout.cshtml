@@ -4,8 +4,42 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Foliofy</title>
+    <link rel="stylesheet" href="~/assets/css/normalize.css">
+    <link rel="stylesheet" href="~/assets/css/font.css">
+    <link rel="stylesheet" href="~/assets/css/styles.css">
+    @RenderSection("Styles", required: false)
 </head>
 <body>
-   
+    <header class="header">
+        <div class="container">
+            <a href="#" class="logo-link"><img src="~/assets/images/icons/logo.svg" alt="logo" class="logo"></a>
+            <nav class="nav">
+                <ul class="link__list hidden">
+                    <li class="link__item"><a href="#" class="nav-link" data-hover>Gallery</a></li>
+                    <li class="link__item"><a href="#" class="nav-link" data-hover>Explore</a></li>
+                    <li class="link__item"><a href="#" class="nav-link" data-hover>Community</a></li>
+                    <li class="link__item"><a href="#" class="nav-link" data-hover>About</a></li>
+                </ul>
+                <div class="profile-link" id="profile-link">
+                    <a href="#">
+                        <img src="~/assets/images/icons/profile-icon.svg" alt="Profile Icon" />
+                    </a>
+                    <div class="profile__toggle">
+                        <a href="#" class="profile__toggle-link" id="login-link">Sign In</a>
+                        <a href="#" class="profile__toggle-link">Sign Out</a>
+                    </div>
+                </div>
+                <div class="burger-menu">
+                    <span class="line"></span>
+                    <span class="line"></span>
+                    <span class="line"></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+    @RenderBody()
+
+    <script src="~/assets/js/header.js"></script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
