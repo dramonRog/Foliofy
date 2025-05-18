@@ -14,9 +14,9 @@ body {
     background-color: #001720;
 }
 
-    body.passive {
-        overflow-y: hidden;
-    }
+body.passive {
+    overflow-y: hidden;
+}
 
 h1, h2, h3, h4, p, ul {
     margin: 0;
