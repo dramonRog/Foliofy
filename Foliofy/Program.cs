@@ -1,7 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using Foliofy.DataBase;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+// Connection to database
+string connection = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<Database>(options => options.UseSqlServer(connection));
 
 var app = builder.Build();
 
