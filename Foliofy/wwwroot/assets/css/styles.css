@@ -538,6 +538,10 @@ input::placeholder {
     overflow-y: auto;
 }
 
+.modal-header .register-title {
+    background-color: transparent;
+}
+
 .modal-register.open, .modal-login.open {
     z-index: 2;
     opacity: 1;

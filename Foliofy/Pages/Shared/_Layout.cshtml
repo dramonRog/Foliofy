@@ -219,7 +219,7 @@
                     @Html.AntiForgeryToken()
                     <div class="login-field">
                         <label for="username">Username</label>
-                        <input type="text" id="username" placeholder="Enter username">
+                        <input name="User.Username" type="text" id="username" placeholder="Enter username">
                     </div>
                     <div class="login-field">
                         <label for="password">Password</label>
@@ -241,10 +241,7 @@
         </div>
     </div>
 
-    <script src="~/assets/js/header.js"></script>
-    <script src="~/assets/js/checkbox.js"></script>
-    <script src="~/assets/js/selectOption.js"></script>
-    <script src="~/assets/js/modalPagesActions.js"></script>
+    <script type="module" src="~/assets/js/main.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
