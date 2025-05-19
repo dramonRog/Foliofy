@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Authentication.Cookies;
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -12,21 +14,30 @@
 <body>
     <header class="header">
         <div class="container">
-            <a href="#" class="logo-link"><img src="~/assets/images/icons/logo.svg" alt="logo" class="logo"></a>
+            <a asp-page="/home" class="logo-link"><img src="~/assets/images/icons/logo.svg" alt="logo" class="logo"></a>
             <nav class="nav">
                 <ul class="link__list hidden">
-                    <li class="link__item"><a href="#" class="nav-link">Gallery</a></li>
-                    <li class="link__item"><a href="#" class="nav-link">Explore</a></li>
+                    <li class="link__item"><a href="#" class="@(User.Identity.IsAuthenticated ? "nav-link" : "nav-link authenticate")">Gallery</a></li>
+                    <li class="link__item"><a href="#" class="@(User.Identity.IsAuthenticated ? "nav-link" : "nav-link authenticate")">Explore</a></li>
                     <li class="link__item"><a href="#" class="nav-link">Community</a></li>
                     <li class="link__item"><a href="#" class="nav-link">About</a></li>
                 </ul>
                 <div class="profile-link" id="profile-link">
-                    <a href="#">
+                    <a asp-page="/profile">
                         <img src="~/assets/images/icons/profile-icon.svg" alt="Profile Icon" />
                     </a>
+              
                     <div class="profile__toggle">
-                        <a href="#" class="profile__toggle-link" id="login-link">Sign In</a>
-                        <a href="#" class="profile__toggle-link" id="register-link">Sign Up</a>
+                        @if (User.Identity.IsAuthenticated) {
+                            <a asp-page="/profile" class="profile__toggle-link">My Profile</a>
+                            <a asp-page="/profile" class="profile__toggle-link">My Projects</a>
+                            <a asp-page="/AccountActions/login" asp-page-handler="Login" class="profile__toggle-link login-link">Switch Account</a>
+                            <a asp-page="/AccountActions/logout" asp-page-handler="Logout" class="profile__toggle-link">Logout</a>
+                        }
+                        else {
+                            <a asp-page="/AccountActions/login" asp-page-handler="Login" class="profile__toggle-link login-link">Sign In</a>
+                            <a asp-page="/AccountActions/register" asp-page-handler="Register" class="profile__toggle-link" id="register-link">Sign Up</a>
+                        }
                     </div>
                 </div>
                 <div class="burger-menu">
@@ -122,117 +133,6 @@
             <p class="footer-rights">© 2024 Foliofy. All rights reserved. Built with creativity and care for designers everywhere.</p>
         </div>
     </footer>
-
-    <div class="modal-register">
-        <div class="container">
-            <div class="modal-header">
-                <h2 class="register-title"><span class="title-word-wrapper">Join</span> the creative movement</h2>
-                <div class="close-btn">
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-            <div class="modal-content modal">
-                <form method="post" class="register-form" novalidate>
-                    @Html.AntiForgeryToken() <!-- It is against CSRF attacks. it creates input with name __RequestVerificationToken type hidden, value will very long and random. We must send this token manually in js -->
-                    <div class="register-field">
-                        <label for="username">Username</label>
-                        <input type="text" id="username" placeholder="Enter username">
-                    </div>
-                    <div class="register-field">
-                        <label for="email">Email address</label>
-                        <input type="email" id="email" placeholder="Enter your email address">
-                    </div>
-                    <div class="register-field">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" placeholder="Enter password">
-                    </div>
-                    <div class="register-field">
-                        <label for="repeatPassword">Repeat Password</label>
-                        <input type="password" id="repeatPassword" placeholder="Repeat Password">
-                    </div>
-
-                    <div class="register-field select">
-                        <span>Creative Type</span>
-                        <div class="creative-type">
-                            <div class="selected">
-                                <span class="selected-value">I am joining as a...</span>
-                                <img class="triangle-img" src="~/assets/images/icons/register/triangle.svg" alt="triangle">
-                            </div>
-                            <ul class="select-options">
-                                <li class="register-option">
-                                    <div class="img-wrapper">
-                                        <img src="~/assets/images/icons/creativeKinds/drawing.svg" alt="drawing" class="option-img">
-                                    </div>
-                                    <span>Visual Artist</span>
-                                </li>
-                                <li class="register-option">
-                                    <div class="img-wrapper">
-                                        <img src="~/assets/images/icons/creativeKinds/phone.svg" alt="drawing" class="option-img">
-                                    </div>
-                                    <span>UI/UX Designer</span>
-                                </li>
-                                <li class="register-option">
-                                    <div class="img-wrapper">
-                                        <img src="~/assets/images/icons/creativeMinds/pen.svg" alt="drawing" class="option-img">
-                                    </div>
-                                    <span>Content Creator</span>
-                                </li>
-                                <li class="register-option">
-                                    <div class="img-wrapper">
-                                        <img src="~/assets/images/icons/creativeProcess/accept.svg" alt="drawing" class="option-img">
-                                    </div>
-                                    <span>Freelancer / Consultant</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <input type="hidden" name="creativeType" id="creativeType">
-                    </div>
-                    <div class="register-field">
-                        <div class="privacy">
-                            <span class="custom-checkbox">
-                                <img src="~/assets/images/icons/register/daw.svg" alt="daw">
-                            </span>
-                            <span class="privacy-text">I agree to the Terms and Privacy Policy</span>
-                        </div>
-                    </div>
-                    <button class="register-btn" type="submit">Sign Up</button>
-                </form>
-                <div class="register-illustration">
-                    <img src="~/assets/images/img/register/illustration.png" alt="register illustration">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal-login">
-        <div class="container">
-            <div class="modal-header">
-                <h2 class="modalLogin-title"><span class="title-word-wrapper">Welcome</span> back!</h2>
-                <div class="close-btn">
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-            <div class="modal-content modal">
-                <form method="post" class="login-form" novalidate>
-                    @Html.AntiForgeryToken()
-                    <div class="login-field">
-                        <label for="username">Username</label>
-                        <input name="User.Username" type="text" id="username" placeholder="Enter username">
-                    </div>
-                    <div class="login-field">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" placeholder="Enter password">
-                    </div>
-                    <button class="login-btn" type="submit">Sign In</button>
-                </form>
-                <div class="login-illustration">
-                    <img src="~/assets/images/img/register/illustration.png" alt="login illustration">
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="modal-success">
         <div class="close-btn">

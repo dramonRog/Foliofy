@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Foliofy.DataBase;
 using Foliofy.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Foliofy.Pages
 {
@@ -12,5 +13,7 @@ namespace Foliofy.Pages
 
         [BindProperty]
         public User User { get; set; }
+
+        
     }
 }
