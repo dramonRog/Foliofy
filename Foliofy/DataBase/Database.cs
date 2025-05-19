@@ -8,5 +8,6 @@ namespace Foliofy.DataBase
         public Database(DbContextOptions<Database> options) : base(options) { }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Follower> Followers { get; set; }
     }
 }
