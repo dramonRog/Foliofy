@@ -22,7 +22,7 @@ form.addEventListener("submit", (event) => {
         formData.append("User.Username", username.value);
         formData.append("User.Password", password.value);
 
-        fetch("...", {
+        fetch("/AccountActions/account?handler=Login", {
             method: "POST",
             body: formData
         })

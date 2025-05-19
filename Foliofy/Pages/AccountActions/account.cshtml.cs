@@ -18,8 +18,6 @@ namespace Foliofy.Pages.AccountActions
 
         public async Task<IActionResult> OnPostRegisterAsync()
         {
-            ModelState.Clear();
-
             if (await db.Users.AnyAsync(user => user.Username == User.Username))
                 ModelState.AddModelError("Username", "This username is already taken!");
             
@@ -36,6 +34,27 @@ namespace Foliofy.Pages.AccountActions
             await db.SaveChangesAsync();
 
             return new OkObjectResult(new { message = "Account was created successfully!" });
+        }
+
+        public async Task<IActionResult> OnPostLoginAsync()
+        {
+            ModelState.Clear();
+            User user = await db.Users.FirstOrDefaultAsync(user => user.Username == User.Username);
+
+            if (user == null)
+            {
+                ModelState.AddModelError("Error", "Invalid username or password!");
+                return BadRequest(ModelState);
+            }
+
+            var hasher = new PasswordHasher<User>();
+            if (hasher.VerifyHashedPassword(user, user.Password, User.Password) == PasswordVerificationResult.Success)
+            {
+                return new OkObjectResult(new { message = "You were logged in successfully!" });
+            }
+
+            ModelState.AddModelError("Error", "Invalid username or password!");
+            return BadRequest(ModelState);
         }
     }
 }
