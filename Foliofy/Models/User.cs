@@ -11,11 +11,16 @@ namespace Foliofy.Models
         public string Username { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public string CreativeType { get; set; }
         public string IconPath { get; set; } = "";
+        public string UserDescription { get; set; } = "";
+
         [InverseProperty(nameof(Follower.FollowerUser))]
-        public ICollection<Follower> Followers { get; set; }
+        public ICollection<Follower> Followers { get; set; } = new List<Follower>();
+
         [InverseProperty(nameof(Follower.FollowedUser))]
-        public ICollection<Follower> Followings { get; set; }
+        public ICollection<Follower> Followings { get; set; } = new List<Follower>();
+
+        [InverseProperty(nameof(UserTag.User))]
+        public ICollection<UserTag> Tags { get; set; } = new List<UserTag>();
     }
 }

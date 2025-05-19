@@ -9,5 +9,6 @@ namespace Foliofy.DataBase
 
         public DbSet<User> Users { get; set; }
         public DbSet<Follower> Followers { get; set; }
+        public DbSet<UserTag> UserTags { get; set; }
     }
 }
