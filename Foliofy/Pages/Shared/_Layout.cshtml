@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Authentication.Cookies;
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -15,8 +17,10 @@
             <a href="#" class="logo-link"><img src="~/assets/images/icons/logo.svg" alt="logo" class="logo"></a>
             <nav class="nav">
                 <ul class="link__list hidden">
-                    <li class="link__item"><a href="#" class="nav-link">Gallery</a></li>
-                    <li class="link__item"><a href="#" class="nav-link">Explore</a></li>
+                    @if (User.Identity.IsAuthenticated) {
+                        <li class="link__item"><a href="#" class="nav-link">Gallery</a></li>
+                        <li class="link__item"><a href="#" class="nav-link">Explore</a></li>
+                    }
                     <li class="link__item"><a href="#" class="nav-link">Community</a></li>
                     <li class="link__item"><a href="#" class="nav-link">About</a></li>
                 </ul>
@@ -25,8 +29,16 @@
                         <img src="~/assets/images/icons/profile-icon.svg" alt="Profile Icon" />
                     </a>
                     <div class="profile__toggle">
-                        <a href="#" class="profile__toggle-link" id="login-link">Sign In</a>
-                        <a href="#" class="profile__toggle-link" id="register-link">Sign Up</a>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a href="#" class="profile__toggle-link">My Projects</a>
+                            <a href="#" class="profile__toggle-link" id="login-link">Switch Account</a>
+                            <a href="#" class="profile__toggle-link">Logout</a>
+                        }
+                        else {
+                            <a href="#" class="profile__toggle-link" id="login-link">Sign In</a>
+                            <a href="#" class="profile__toggle-link" id="register-link">Sign Up</a>
+                        }
                     </div>
                 </div>
                 <div class="burger-menu">

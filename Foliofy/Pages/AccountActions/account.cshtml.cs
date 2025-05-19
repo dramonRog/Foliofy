@@ -5,6 +5,8 @@ using Foliofy.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Foliofy.Pages.AccountActions
 {
@@ -32,6 +34,17 @@ namespace Foliofy.Pages.AccountActions
 
             db.Users.Add(User);
             await db.SaveChangesAsync();
+
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, User.Id.ToString()),
+                new Claim(ClaimTypes.Name, User.Username)
+            };
+
+            var identity = new ClaimsIdentity(claims, "MyCookieAuth");
+            var principal = new ClaimsPrincipal(identity);
+
+            await HttpContext.SignInAsync("MyCookieAuth", principal);
 
             return new OkObjectResult(new { message = "Account was created successfully!" });
         }

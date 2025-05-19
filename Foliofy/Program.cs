@@ -10,6 +10,12 @@ builder.Services.AddRazorPages();
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<Database>(options => options.UseSqlServer(connection));
 
+// Add authorization
+builder.Services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", options => {
+     options.Cookie.Name = "MyAuthCookie";
+     options.ExpireTimeSpan = TimeSpan.FromHours(1);
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
