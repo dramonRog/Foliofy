@@ -32,9 +32,9 @@ registerForms.forEach(form => {
             formData.append("User.Username", username.value);
             formData.append("User.Email", email.value);
             formData.append("User.Password", password.value);
-            formData.append("TagName", selectInput.value);
+            formData.append("User.CreativeType", selectInput.value);
 
-            fetch("...", {
+            fetch("/AccountActions/account?handler=Register", {
                 method: "POST",
                 body: formData
             })
