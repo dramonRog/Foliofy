@@ -1,0 +1,79 @@
+﻿@page
+@model Foliofy.Pages.AccountActions.registerModel
+
+<div class="modal-register">
+    <div class="container">
+        <h2 class="register-title"><span class="title-word-wrapper">Join</span> the creative movement</h2>
+        <div class="modal-content modal">
+            <form method="post" class="register-form" novalidate>
+                @Html.AntiForgeryToken() <!-- It is against CSRF attacks. it creates input with name __RequestVerificationToken type hidden, value will very long and random. We must send this token manually in js -->
+                <div class="register-field">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Enter username">
+                </div>
+                <div class="register-field">
+                    <label for="email">Email address</label>
+                    <input type="email" id="email" placeholder="Enter your email address">
+                </div>
+                <div class="register-field">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter password">
+                </div>
+                <div class="register-field">
+                    <label for="repeatPassword">Repeat Password</label>
+                    <input type="password" id="repeatPassword" placeholder="Repeat Password">
+                </div>
+
+                <div class="register-field select">
+                    <span>Creative Type</span>
+                    <div class="creative-type">
+                        <div class="selected">
+                            <span class="selected-value">I am joining as a...</span>
+                            <img class="triangle-img" src="~/assets/images/icons/register/triangle.svg" alt="triangle">
+                        </div>
+                        <ul class="select-options">
+                            <li class="register-option">
+                                <div class="img-wrapper">
+                                    <img src="~/assets/images/icons/creativeKinds/drawing.svg" alt="drawing" class="option-img">
+                                </div>
+                                <span>Visual Artist</span>
+                            </li>
+                            <li class="register-option">
+                                <div class="img-wrapper">
+                                    <img src="~/assets/images/icons/creativeKinds/phone.svg" alt="drawing" class="option-img">
+                                </div>
+                                <span>UI/UX Designer</span>
+                            </li>
+                            <li class="register-option">
+                                <div class="img-wrapper">
+                                    <img src="~/assets/images/icons/creativeMinds/pen.svg" alt="drawing" class="option-img">
+                                </div>
+                                <span>Content Creator</span>
+                            </li>
+                            <li class="register-option">
+                                <div class="img-wrapper">
+                                    <img src="~/assets/images/icons/creativeProcess/accept.svg" alt="drawing" class="option-img">
+                                </div>
+                                <span>Freelancer / Consultant</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <input type="hidden" name="creativeType" id="creativeType">
+                </div>
+                <div class="register-field">
+                    <div class="privacy">
+                        <span class="custom-checkbox">
+                            <img src="~/assets/images/icons/register/daw.svg" alt="daw">
+                        </span>
+                        <span class="privacy-text">I agree to the Terms and Privacy Policy</span>
+                    </div>
+                </div>
+                <button class="register-btn" type="submit">Sign Up</button>
+            </form>
+            <div class="register-illustration">
+                <img src="~/assets/images/img/register/illustration.png" alt="register illustration">
+            </div>
+        </div>
+    </div>
+</div>
+

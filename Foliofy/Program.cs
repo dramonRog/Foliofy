@@ -11,9 +11,10 @@ string connection = builder.Configuration.GetConnectionString("DefaultConnection
 builder.Services.AddDbContext<Database>(options => options.UseSqlServer(connection));
 
 // Add authorization
-builder.Services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", options => {
+builder.Services.AddAuthentication(options => { options.DefaultScheme = "MyCookieAuth"; }).AddCookie("MyCookieAuth", options => {
     options.Cookie.Name = "MyAuthCookie";
-    options.LoginPath = "/Login";
+    options.LoginPath = "/AccountActions/login";
+    options.LogoutPath = "/AccountActions/logout";
     options.ExpireTimeSpan = TimeSpan.FromHours(1);
 });
 
@@ -32,8 +33,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapRazorPages();
 
