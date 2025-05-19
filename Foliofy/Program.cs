@@ -12,8 +12,9 @@ builder.Services.AddDbContext<Database>(options => options.UseSqlServer(connecti
 
 // Add authorization
 builder.Services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", options => {
-     options.Cookie.Name = "MyAuthCookie";
-     options.ExpireTimeSpan = TimeSpan.FromHours(1);
+    options.Cookie.Name = "MyAuthCookie";
+    options.LoginPath = "/Login";
+    options.ExpireTimeSpan = TimeSpan.FromHours(1);
 });
 
 var app = builder.Build();
@@ -32,6 +33,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapRazorPages();
 

@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Foliofy.Pages.AccountActions
 {
@@ -63,11 +64,27 @@ namespace Foliofy.Pages.AccountActions
             var hasher = new PasswordHasher<User>();
             if (hasher.VerifyHashedPassword(user, user.Password, User.Password) == PasswordVerificationResult.Success)
             {
+                var claims = new List<Claim>()
+                {
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Name, User.Username)
+                };
+
+                var identity = new ClaimsIdentity(claims, "MyCookieAuth");
+                var principal = new ClaimsPrincipal(identity);
+
+                await HttpContext.SignInAsync("MyCookieAuth", principal);
                 return new OkObjectResult(new { message = "You were logged in successfully!" });
             }
 
             ModelState.AddModelError("Error", "Invalid username or password!");
             return BadRequest(ModelState);
+        }
+
+        public async Task<IActionResult> OnGetLogout()
+        {
+            await HttpContext.SignOutAsync("MyCookieAuth");
+            return RedirectToPage("/home");
         }
     }
 }
