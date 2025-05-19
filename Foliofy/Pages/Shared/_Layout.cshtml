@@ -24,7 +24,12 @@
                 </ul>
                 <div class="profile-link" id="profile-link">
                     <a asp-page="/profile">
-                        <img src="~/assets/images/icons/profile-icon.svg" alt="Profile Icon" />
+                        @{
+                            var iconPath = @User.FindFirst("icon")?.Value;
+                            var defaultIconPath = Url.Content("~/assets/images/icons/profile-icon.svg");
+                            iconPath = String.IsNullOrEmpty(iconPath) ? defaultIconPath : iconPath;
+                        }
+                        <img src="@iconPath" alt="Profile Icon" />
                     </a>
               
                     <div class="profile__toggle">

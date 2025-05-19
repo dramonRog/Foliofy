@@ -10,5 +10,6 @@ namespace Foliofy.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public string CreativeType { get; set; }
+        public string IconPath { get; set; } = "";
     }
 }

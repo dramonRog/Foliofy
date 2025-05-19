@@ -19,7 +19,8 @@ namespace Foliofy.Migrations
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreativeType = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CreativeType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IconPath = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
