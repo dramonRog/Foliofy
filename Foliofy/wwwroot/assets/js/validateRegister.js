@@ -28,7 +28,7 @@ if (form) {
             formData.append("User.Username", username.value);
             formData.append("User.Email", email.value);
             formData.append("User.Password", password.value);
-            formData.append("User.CreativeType", selectInput.value);
+            formData.append("CreativeType", selectInput.value);
 
             fetch("/AccountActions/register?handler=Register", {
                 method: "POST",
