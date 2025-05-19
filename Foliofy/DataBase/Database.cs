@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Foliofy.Models;
 
 namespace Foliofy.DataBase
 {
@@ -6,5 +7,6 @@ namespace Foliofy.DataBase
     {
         public Database(DbContextOptions<Database> options) : base(options) { }
 
+        public DbSet<User> Users { get; set; }
     }
 }
