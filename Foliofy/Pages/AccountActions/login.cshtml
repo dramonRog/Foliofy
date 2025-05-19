@@ -1,0 +1,28 @@
+﻿@page
+@model Foliofy.Pages.AccountActions.LoginModel
+
+<div class="modal-login">
+    <div class="container">
+        <div class="modal-header">
+            <h2 class="modalLogin-title"><span class="title-word-wrapper">Welcome</span> back!</h2>
+            
+        </div>
+        <div class="modal-content modal">
+            <form method="post" class="login-form" novalidate>
+                @Html.AntiForgeryToken()
+                <div class="login-field">
+                    <label for="username">Username</label>
+                    <input name="User.Username" type="text" id="username" placeholder="Enter username">
+                </div>
+                <div class="login-field">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter password">
+                </div>
+                <button class="login-btn" type="submit">Sign In</button>
+            </form>
+            <div class="login-illustration">
+                <img src="~/assets/images/img/register/illustration.png" alt="login illustration">
+            </div>
+        </div>
+    </div>
+</div>

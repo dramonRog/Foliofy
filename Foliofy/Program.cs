@@ -1,7 +1,22 @@
+using Microsoft.EntityFrameworkCore;
+using Foliofy.DataBase;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+// Connection to database
+string connection = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<Database>(options => options.UseSqlServer(connection));
+
+// Add authorization
+builder.Services.AddAuthentication(options => { options.DefaultScheme = "MyCookieAuth"; }).AddCookie("MyCookieAuth", options => {
+    options.Cookie.Name = "MyAuthCookie";
+    options.LoginPath = "/AccountActions/login";
+    options.LogoutPath = "/AccountActions/logout";
+    options.ExpireTimeSpan = TimeSpan.FromHours(1);
+});
 
 var app = builder.Build();
 
@@ -18,6 +33,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();

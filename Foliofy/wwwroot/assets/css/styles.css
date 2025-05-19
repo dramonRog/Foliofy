@@ -133,8 +133,11 @@ input::placeholder {
 .nav-link {
     position: relative;
 }
+.nav-link.authenticate {
+    opacity: 0.7;
+}
 
-.nav-link::after {
+.nav-link:not(.authenticate)::after {
     content: '';
     position: absolute;
     top: calc(100% + 4px);
@@ -342,7 +345,7 @@ input::placeholder {
     border-radius: 32px;
 }
 
-.modal-content:not(.modal-content.modal) {
+.modal-content {
     background-color: #001F29;
 }
 
@@ -353,7 +356,7 @@ input::placeholder {
 }
 
 .register-form, .login-form {
-    flex: 0 1 472px;
+    flex: 1 1 472px;
 }
 
 .register-illustration, .login-illustration {
@@ -524,58 +527,14 @@ input::placeholder {
 }
 
 .modal-register, .modal-login {
-    width: 100vw;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    background-color: #001F2E;
     padding-bottom: 10px;
     padding: 0 25px;
-    transition: opacity .35s ease-in-out, transform .35s ease-in-out;
-    z-index: -1;
-    transform: scale(0.95);
-    overflow-y: auto;
-}
-
-.modal-header .register-title {
-    background-color: transparent;
-}
-
-.modal-register.open, .modal-login.open {
-    z-index: 2;
-    opacity: 1;
-    transform: scale(1);
 }
 
 .modal-register .container, .modal-login .container {
     display: flex;
     flex-direction: column;
     height: 100vh;
-}
-
-.modal-content.modal {
-    flex: 1 1 auto;
-    margin-top: 30px;
-    padding: 0;
-    align-items: flex-start;
-    border-radius: 0;
-}
-
-.modal-header {
-    flex: 0 0 60px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    padding: 10px;
-    background-color: rgba(0,16,16,0.6);
-}
-
-.modal-register .register-title {
-    font-size: clamp(1rem, 0.682rem + 1.59vw, 1.875rem);
-    background-color: transparent;
-    white-space: nowrap;
 }
 
 .modal-content.modal .register-illustration, .login-illustration {
@@ -612,11 +571,6 @@ input::placeholder {
 
 .modal-login .modal-content.modal {
     align-items: center;
-}
-
-.modal-login .modalLogin-title {
-    background-color: transparent;
-    white-space: nowrap;
 }
 
 .modal-success {
@@ -753,14 +707,12 @@ input::placeholder {
     .register-form, .login-form {
         width: 100%;
     }
+    .login-form {
+        flex-basis: auto;
+    }
 
     .modal-content.modal .register-illustration, .login-illustration {
         display: none;
-    }
-
-    .modal-header {
-        padding-left: 0;
-        padding-right: 5px;
     }
 }
 
