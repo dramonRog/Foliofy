@@ -1,2 +1,61 @@
 ﻿@page
 @model Foliofy.Pages.profileModel
+@using Foliofy.Models;
+
+@section Styles {
+	<link rel="stylesheet" href="~/profile/profile.css" />
+}
+
+<section class="user-data">
+	<div class="container">
+		<div class="user-preview">
+			<div class="user-intro">
+				<div class="icon-wrapper">
+					<img class="user-icon" src=@(Model.CurrentUser.IconPath != "" ? Model.CurrentUser.IconPath : Url.Content("~/assets/images/icons/profile-icon.svg")) />
+				</div>
+				<div class="user-context">
+					<p class="user-username">@Model.CurrentUser.Username</p>
+					<div class="user-stat">
+						<div class="stat-info">
+							<span>0</span>
+							<span>Posts</span>
+						</div>
+						<div class="stat-info">
+							<span>@Model.CurrentUser.Followers.Count</span>
+							<span>Followers</span>
+						</div>
+						<div class="stat-info">
+							<span>0</span>
+							<span>Views</span>
+						</div>
+						<div class="stat-info">
+							<span>0</span>
+							<span>Likes</span>
+						</div>
+						<div class="stat-info">
+							<span>@Model.CurrentUser.Followings.Count</span>
+							<span>Followings</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="user-tags">
+				@foreach (UserTag tag in Model.CurrentUser.Tags.Where(tag => tag.Category == TagCategory.CreativeType))
+				{
+					<span class="tag creative">@tag.TagName</span>
+				}
+				@foreach (UserTag tag in Model.CurrentUser.Tags.Where(tag => tag.Category != TagCategory.CreativeType))
+				{
+					<span class="tag">@tag.TagName</span>
+				}
+			</div>
+
+			<button class="edit-profile">Edit Profile</button>
+		</div>
+		<div class="user-about">
+			<h3 class="user__about-title">About Me:</h3>
+			<div class="user-description">@Model.CurrentUser.UserDescription</div>
+		</div>
+	</div>
+</section>

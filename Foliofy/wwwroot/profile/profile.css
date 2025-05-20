@@ -1,1 +1,143 @@
-﻿
+﻿.user-preview {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.user-intro {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.icon-wrapper {
+    flex: 0 1 80px;
+    min-width: 50px;
+    align-self: center;
+}
+
+.user-icon {
+    width: 80px;
+    max-width: 100%;
+}
+
+.user-stat {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    flex: 1 1 auto;
+}
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-username {
+    font-weight: 700;
+    font-size: clamp(1rem, 0.818rem + 0.91vw, 1.5rem);
+    text-align: center;
+    margin: 0;
+}
+
+.stat-info span {
+    font-weight: 500;
+    font-size: clamp(0.75rem, 0.568rem + 0.91vw, 1.25rem);
+}
+
+.user-tags {
+    align-self: stretch;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex: 0 1 auto;
+    padding: 0 40px;
+    border-left: 2px solid #1D4750;
+    border-right: 2px solid #1D4750;
+}
+
+.tag {
+    padding: 6px 14px;
+    background-color: #002D3C;
+    color: #64D5DB;
+    font-size: clamp(0.625rem, 0.489rem + 0.68vw, 1rem);
+    font-weight: 700;
+    border-radius: 10px;
+}
+
+.tag.creative {
+    background-color: #2E1A47;
+}
+
+.edit-profile {
+    height: auto;
+    padding: 10px 25px;
+    background-color: #B03400;
+    white-space: nowrap;
+    width: 160px;
+}
+
+.user-about {
+    margin-top: 40px;
+}
+
+.user__about-title {
+    font-weight: 700;
+}
+
+@media (max-width: 1136px) {
+    .user-preview {
+        justify-content: flex-start;
+    }
+
+    .user-tags {
+        order: 1;
+        border: none;
+        padding: 0;
+        flex: 0 1 100%;
+        justify-content: flex-start;
+    }
+
+    .user-action {
+        border-left: none;
+    }
+
+    .user-intro {
+        flex: 1 1 auto;
+    }
+
+    .user-context {
+        flex: 1 1 auto;
+    }
+
+    .user-stat {
+        justify-content: center;
+    }
+}
+
+@media(max-width: 814px) {
+    .user-preview {
+        row-gap: 15px;
+        justify-content: center;
+    }
+
+    .user-tags {
+        order: 0;
+        justify-content: center;
+    }
+}
+
+@media(max-width: 390px) {
+    .user-data {
+        margin: 0;
+    }
+
+    .user-intro {
+        flex-direction: column;
+    }
+}
