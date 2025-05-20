@@ -38,5 +38,20 @@ namespace Foliofy.Pages.profile
                 return NotFound();
             return Page();
         }
+
+        public async Task<IActionResult> OnPostCheckTagAsync(string CustomTagName, string removedTagsList)
+        {
+            var userClaimId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (userClaimId == null || !int.TryParse(userClaimId, out int userId))
+                return RedirectToPage("/AccountActions/login");
+
+            string[] removedTags = removedTagsList == null ? Array.Empty<string>() : removedTagsList.Split(',');
+            if (await db.UserTags.AnyAsync(tag => tag.TagName == CustomTagName && tag.UserId == userId
+                && !removedTags.Contains(CustomTagName) && tag.Category == TagCategory.Tool))
+                return new JsonResult(false);
+            
+            return new JsonResult(true);
+        }
     }
 }

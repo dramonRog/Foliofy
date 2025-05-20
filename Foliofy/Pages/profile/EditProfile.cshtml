@@ -8,6 +8,7 @@
 
 <form method="post" enctype="multipart/form-data" class="modal-edit">
 	<div class="container">
+		@Html.AntiForgeryToken() <!-- It is against CSRF attacks. it creates input with name __RequestVerificationToken type hidden, value will very long and random. We must send this token manually in js -->
 		<h3 class="title-text">Edit profile</h3>
 
 		<div class="profile-info">
@@ -39,14 +40,14 @@
 						</div>
 					}
 					<div class="add-creative-type">
-						<select class="creative-type-tags">
+						<select class="creative-type-tags" id="creative-type-tags">
 							<option value="" disabled selected hidden>Select creative type to add...</option>
 							<option value="Visual Artist">Visual Artist</option>
 							<option value="UI/UX Designer">UI/UX Designer</option>
 							<option value="Content Creator">Content Creator</option>
 							<option value="Freelancer / Consultant">Freelancer / Consultant</option>
 						</select>
-						<button class="add-button" type="button">
+						<button class="add-button" id="add-creative-type-tag" type="button">
 							<span></span>
 							<span></span>
 						</button>
@@ -67,14 +68,6 @@
 						<span class="tag">@tag.TagName</span>
 					</div>
 				}
-				<div class="tag-wrapper">
-					<span class="custom-checkbox"><img src="~/assets/images/icons/register/daw.svg" /></span>
-					<span class="tag">Top</span>
-				</div>
-				<div class="tag-wrapper">
-					<span class="custom-checkbox"><img src="~/assets/images/icons/register/daw.svg" /></span>
-					<span class="tag">Figma</span>
-				</div>
 				<div class="tag-wrapper">
 					<span class="custom-checkbox"><img src="~/assets/images/icons/register/daw.svg" /></span>
 					<span class="tag">Pixso</span>
@@ -100,7 +93,7 @@
 				<label for="tagName">Tag Name</label>
 				<div class="tag-input">
 					<input type="text" name="tagName" id="tagName" placeholder="Enter tag name..." />
-					<button class="add-button" type="button">
+					<button class="add-button" id="add-custom-tag" type="button">
 						<span></span>
 						<span></span>
 					</button>
@@ -122,3 +115,8 @@
 		</div>
 	</div>
 </form>
+
+@section Scripts {
+	<script src="~/profile/js/addCustomTag.js"></script>
+}
+
