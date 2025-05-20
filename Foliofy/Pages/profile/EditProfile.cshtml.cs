@@ -50,7 +50,20 @@ namespace Foliofy.Pages.profile
             if (await db.UserTags.AnyAsync(tag => tag.TagName == CustomTagName && tag.UserId == userId
                 && !removedTags.Contains(CustomTagName) && tag.Category == TagCategory.Tool))
                 return new JsonResult(false);
-            
+            return new JsonResult(true);
+        }
+
+        public async Task<IActionResult> OnPostCheckCreativeTypeAsync(string CreativeType, string removeCreativeTagsList)
+        {
+            var userClaimId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (userClaimId == null || !int.TryParse(userClaimId, out int userId))
+                return RedirectToPage("/AccountActions/login");
+
+            string[] removeTagsList = removeCreativeTagsList == null ? Array.Empty<string>() : removeCreativeTagsList.Split(',');
+
+            if (await db.UserTags.AnyAsync(tag => tag.TagName == CreativeType && tag.UserId == userId && !removeTagsList.Contains(CreativeType)))
+                return new JsonResult(false);
             return new JsonResult(true);
         }
     }

@@ -1,7 +1,6 @@
-﻿const EditForm = document.querySelector(".modal-edit");
-const addCustomTag = document.querySelector("#add-custom-tag");
-const customTagName = EditForm.querySelector("#tagName");
-const token = EditForm.querySelector('input[name="__RequestVerificationToken"]');
+﻿const addCustomTag = document.querySelector("#add-custom-tag");
+const customTagName = document.querySelector("#tagName");
+const token = document.querySelector('input[name="__RequestVerificationToken"]');
 const tagContainer = document.querySelector(".tags-container");
 const removeCustomTags = document.querySelector(".remove-tag");
 
@@ -28,10 +27,10 @@ addCustomTag.addEventListener("click", () => {
                 addedTags.push(customTagName.value.trim());
                 uppendTagToDocument(customTagName.value);
                 removedTags = removedTags.filter(removeTag => removeTag !== customTagName.value.trim());
-                customTagName.value = "";
             } else {
                 alert("That tag already exists!");
             }
+            customTagName.value = "";
         })
         .catch(error => {
             console.error("Error: ", error);
@@ -50,7 +49,6 @@ removeCustomTags.addEventListener("click", () => {
         }
     }
 
-    console.log(removedTags);
     for (let removeTag of removedTags) {
         addedTags = addedTags.filter(tag => tag != removeTag);
     }
