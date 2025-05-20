@@ -14,7 +14,7 @@
 		<div class="profile-info">
 			<div class="profile-icon">
 				<img src="@Url.Content(Model.CurrentUser.IconPath != "" ? Model.CurrentUser.IconPath : "~/assets/images/icons/profile-icon.svg")" alt="User Icon" id="iconPreview" />
-				<input type="file" name="UploadedIcon" id="UploadedIcon" hidden />
+				<input type="file" name="UploadedIcon" id="UploadedIcon" accept=".jpg,.jpeg,.svg,image/jpeg,image/svg+xml" hidden />
 				<button type="button" class="change-icon-btn">Change</button>
 			</div>
 
@@ -106,5 +106,6 @@
 @section Scripts {
 	<script src="~/profile/js/addCustomTag.js"></script>
 	<script src="~/profile/js/addCreativeTypeTag.js"></script>
+	<script src="~/profile/js/uploadImage.js"></script>
 }
 

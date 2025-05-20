@@ -535,7 +535,7 @@ input::placeholder {
 .modal-register .container, .modal-login .container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    margin-bottom: 40px;
 }
 
 .modal-content.modal .register-illustration, .login-illustration {
