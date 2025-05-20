@@ -1,4 +1,4 @@
-* {
+﻿* {
     box-sizing: border-box;
 }
 
@@ -14,9 +14,9 @@ body {
     background-color: #001720;
 }
 
-body.passive {
-    overflow-y: hidden;
-}
+    body.passive {
+        overflow-y: hidden;
+    }
 
 h1, h2, h3, h4, p, ul {
     margin: 0;
@@ -133,6 +133,7 @@ input::placeholder {
 .nav-link {
     position: relative;
 }
+
 .nav-link.authenticate {
     opacity: 0.7;
 }
@@ -707,6 +708,7 @@ input::placeholder {
     .register-form, .login-form {
         width: 100%;
     }
+
     .login-form {
         flex-basis: auto;
     }

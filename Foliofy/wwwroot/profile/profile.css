@@ -75,11 +75,15 @@
 }
 
 .edit-profile {
-    height: auto;
-    padding: 10px 25px;
-    background-color: #B03400;
-    white-space: nowrap;
-    width: 160px;
+    display: inline-block;
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: clamp(1rem, 0.867rem + 0.43vw, 1.25rem);
+    text-align: center;
+    padding: 15px 10px;
+    background-color: #E54F00;
+    width: 200px;
+    transition: background-color .4s ease-in-out;
 }
 
 .user-about {
@@ -88,6 +92,215 @@
 
 .user__about-title {
     font-weight: 700;
+}
+
+.modal-edit {
+    background-color: #001F2E;
+    padding: 50px 35px;
+    margin-bottom: 40px;
+}
+
+.modal-edit .container {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+}
+
+.profile-info-illustration {
+    display: flex;
+    flex: 0 2 auto;
+    min-width: 250px;
+}
+
+.profile-info .profile-icon {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    flex: 1 1 auto;
+    min-width: 100px;
+}
+
+.profile-info .profile-icon img {
+    display: block;
+    min-width: 50px;
+    max-width: 150px;
+    width: 100%;
+}
+
+.profile-info .change-icon-btn {
+    background-color: #00161E;
+    color: #56A4AC;
+    border: 1px solid #004051;
+    width: 100%;
+}
+
+.profile-data {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    flex: 1 1 400px;
+    min-width: 300px;
+}
+
+.profile-data .profile-input {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.profile-data .creation-type .creation-type-tag {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #004051;
+}
+
+.creation-type-tag .creative-tag {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.creative-tag img {
+    display: block;
+    width: 55px;
+}
+
+.remove-btn {
+    background-color: #740000;
+    width: auto;
+    padding: 10px 30px;
+}
+
+.add-creative-type {
+    margin-top: 24px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.add-creative-type .creative-type-tags {
+    padding: 12px 10px;
+    background-color: #00161E;
+    color: #56A4AC;
+    border-radius: 8px;
+    border: 1px solid #004051;
+    flex: 1 1 auto;
+    font-size: clamp(0.75rem, -0.25rem + 2vw, 1.25rem);
+    min-width: 0;
+}
+
+.add-button {
+    position: relative;
+    height: 45px;
+    background-color: #00474F;
+    padding: 0;
+}
+
+.remove-btn {
+    padding: 10px 20px;
+}
+
+.add-button span {
+    display: inline-block;
+    width: 25px;
+    height: 5px;
+    background-color: #ffffff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.add-button span:first-child {
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.profile-tags {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    max-width: 582px;
+}
+
+.tag-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.remove-tag {
+    width: fit-content;
+    padding: 10px 35px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background-color: #740000;
+    color: #ffffff;
+}
+
+.tag-input {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+.tag-input input {
+    flex: 0 1 480px;
+    min-width: 150px;
+}
+
+.profile-about textarea {
+    margin-top: 12px;
+    width: 100%;
+    display: block;
+    max-width: 100%;
+}
+
+.profile-actions {
+    display: flex;
+    gap: 16px;
+    max-width: 320px;
+}
+
+.profile-actions .save-profile, .profile-actions .cancel {
+    width: auto;
+    padding: 10px 25px;
+    flex: 1 1 50%;
+}
+
+.profile-actions .save-profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: #ffffff;
+}
+
+.profile-actions .cancel {
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid #004051;
+    background-color: #00161E;
+    color: #56A4AC;
 }
 
 @media (max-width: 1136px) {
@@ -129,6 +342,32 @@
     .user-tags {
         order: 0;
         justify-content: center;
+    }
+
+    .profile-info {
+        flex-wrap: wrap;
+    }
+
+    .profile-info-illustration {
+        display: none;
+    }
+}
+
+@media(max-width: 620px) {
+    .modal-edit {
+        padding: 25px 35px;
+    }
+
+    .profile-icon .change-icon-btn {
+        width: 50%;
+    }
+
+    .profile-data {
+        min-width: 250px;
+    }
+
+    .profile-data .add-button {
+        width: 45px;
     }
 }
 

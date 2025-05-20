@@ -1,0 +1,124 @@
+﻿@page
+@model Foliofy.Pages.profile.EditProfileModel
+@using Foliofy.Models;
+
+@section Styles {
+<link rel="stylesheet" href="~/profile/profile.css" />
+}
+
+<form method="post" enctype="multipart/form-data" class="modal-edit">
+	<div class="container">
+		<h3 class="title-text">Edit profile</h3>
+
+		<div class="profile-info">
+			<div class="profile-icon">
+				<img src="@Url.Content(Model.CurrentUser.IconPath != "" ? Model.CurrentUser.IconPath : "~/assets/images/icons/profile-icon.svg")" alt="User Icon" id="iconPreview" />
+				<input type="file" name="UploadedIcon" id="UploadedIcon" hidden />
+				<button type="button" class="change-icon-btn">Change</button>
+			</div>
+
+			<div class="profile-data">
+				<div class="profile-input">
+					<label for="username">Username</label>
+					<input type="text" name="username" id="username" value="@Model.CurrentUser.Username" placeholder="Enter username..." />
+				</div>
+				<div class="profile-input">
+					<label for="email">Email address</label>
+					<input type="email" name="email" id="email" value="@Model.CurrentUser.Email" placeholder="Enter email..." />
+				</div>
+
+				<div class="creation-type">
+					@foreach (var creativeType in Model.CurrentUser.Tags.Where(tag => tag.Category == TagCategory.CreativeType))
+					{
+						<div class="creation-type-tag">
+							<span class="creative-tag">
+								<img src="~/assets/images/icons/creativeMinds/people.svg" />
+								@creativeType.TagName.Trim()
+							</span>
+							<button class="remove-btn" type="button"><img src="~/assets/images/icons/edit/remove-icon.svg" /></button>
+						</div>
+					}
+					<div class="add-creative-type">
+						<select class="creative-type-tags">
+							<option value="" disabled selected hidden>Select creative type to add...</option>
+							<option value="Visual Artist">Visual Artist</option>
+							<option value="UI/UX Designer">UI/UX Designer</option>
+							<option value="Content Creator">Content Creator</option>
+							<option value="Freelancer / Consultant">Freelancer / Consultant</option>
+						</select>
+						<button class="add-button" type="button">
+							<span></span>
+							<span></span>
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<img src="~/assets/images/img/footer-illustration.png" class="profile-info-illustration" />
+		</div>
+
+		<div class="profile-tags">
+			<h4>My tags</h4>
+			<div class="tags-container">
+				@foreach (var tag in Model.CurrentUser.Tags.Where(tag => tag.Category == TagCategory.Tool))
+				{
+					<div class="tag-wrapper">
+						<span class="custom-checkbox"><img src="~/assets/images/icons/register/daw.svg" /></span>
+						<span class="tag">@tag.TagName</span>
+					</div>
+				}
+				<div class="tag-wrapper">
+					<span class="custom-checkbox"><img src="~/assets/images/icons/register/daw.svg" /></span>
+					<span class="tag">Top</span>
+				</div>
+				<div class="tag-wrapper">
+					<span class="custom-checkbox"><img src="~/assets/images/icons/register/daw.svg" /></span>
+					<span class="tag">Figma</span>
+				</div>
+				<div class="tag-wrapper">
+					<span class="custom-checkbox"><img src="~/assets/images/icons/register/daw.svg" /></span>
+					<span class="tag">Pixso</span>
+				</div>
+				<div class="tag-wrapper">
+					<span class="custom-checkbox"><img src="~/assets/images/icons/register/daw.svg" /></span>
+					<span class="tag">Dota2</span>
+				</div>
+				<div class="tag-wrapper">
+					<span class="custom-checkbox"><img src="~/assets/images/icons/register/daw.svg" /></span>
+					<span class="tag">Photoshop</span>
+				</div>
+				<div class="tag-wrapper">
+					<span class="custom-checkbox"><img src="~/assets/images/icons/register/daw.svg" /></span>
+					<span class="tag">Adobe Illustrator</span>
+				</div>
+			</div>
+			<button class="remove-tag" type="button">
+				Remove selected
+				<img src="~/assets/images/icons/edit/remove-icon.svg" />
+			</button>
+			<div class="custom-tag">
+				<label for="tagName">Tag Name</label>
+				<div class="tag-input">
+					<input type="text" name="tagName" id="tagName" placeholder="Enter tag name..." />
+					<button class="add-button" type="button">
+						<span></span>
+						<span></span>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="profile-about">
+			<h4>About Me:</h4>
+			<textarea name="aboutInfo" id="aboutInfo" placeholder="Enter something about you...">@Model.CurrentUser.UserDescription</textarea>
+		</div>
+
+		<div class="profile-actions">
+			<button type="submit" class="save-profile">
+				<img src="~/assets/images/icons/edit/save-icon.svg" />
+				Save
+			</button>
+			<a asp-page="./profile" class="cancel">Cancel</a>
+		</div>
+	</div>
+</form>

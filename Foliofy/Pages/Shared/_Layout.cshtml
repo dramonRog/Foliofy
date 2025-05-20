@@ -23,7 +23,7 @@
                     <li class="link__item"><a href="#" class="nav-link">About</a></li>
                 </ul>
                 <div class="profile-link" id="profile-link">
-                    <a asp-page="/profile">
+                    <a asp-page="/profile/profile">
                         @{
                             var iconPath = @User.FindFirst("icon")?.Value;
                             var defaultIconPath = Url.Content("~/assets/images/icons/profile-icon.svg");
@@ -34,8 +34,8 @@
               
                     <div class="profile__toggle">
                         @if (User.Identity.IsAuthenticated) {
-                            <a asp-page="/profile" class="profile__toggle-link">My Profile</a>
-                            <a asp-page="/profile" class="profile__toggle-link">My Projects</a>
+                            <a asp-page="/profile/profile" class="profile__toggle-link">My Profile</a>
+                            <a asp-page="/profile/profile" class="profile__toggle-link">My Projects</a>
                             <a asp-page="/AccountActions/login" asp-page-handler="Login" class="profile__toggle-link login-link">Switch Account</a>
                             <a asp-page="/AccountActions/logout" asp-page-handler="Logout" class="profile__toggle-link">Logout</a>
                         }
