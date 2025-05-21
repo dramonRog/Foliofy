@@ -14,9 +14,9 @@ body {
     background-color: #001720;
 }
 
-    body.passive {
-        overflow-y: hidden;
-    }
+body.passive {
+    overflow-y: hidden;
+}
 
 h1, h2, h3, h4, p, ul {
     margin: 0;
@@ -160,6 +160,12 @@ input::placeholder {
 .profile-link {
     position: relative;
     display: block;
+}
+
+.profile-link img {
+    border-radius: 100%;
+    width: 48px;
+    aspect-ratio: 1 / 1;
 }
 
 .profile__toggle {

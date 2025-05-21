@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="~/profile/profile.css" />
 }
 
-<form method="post" enctype="multipart/form-data" class="modal-edit">
+<form method="post" enctype="multipart/form-data" class="modal-edit" novalidate>
 	<div class="container">
 		@Html.AntiForgeryToken() <!-- It is against CSRF attacks. it creates input with name __RequestVerificationToken type hidden, value will very long and random. We must send this token manually in js -->
 		<h3 class="title-text">Edit profile</h3>
@@ -19,13 +19,13 @@
 			</div>
 
 			<div class="profile-data">
-				<div class="profile-input">
+				<div class="profile-input field">
 					<label for="username">Username</label>
-					<input type="text" name="username" id="username" value="@Model.CurrentUser.Username" placeholder="Enter username..." />
+					<input type="text" id="username" value="@Model.CurrentUser.Username" placeholder="Enter username..." />
 				</div>
-				<div class="profile-input">
+				<div class="profile-input field">
 					<label for="email">Email address</label>
-					<input type="email" name="email" id="email" value="@Model.CurrentUser.Email" placeholder="Enter email..." />
+					<input type="email" id="email" value="@Model.CurrentUser.Email" placeholder="Enter email..." />
 				</div>
 
 				<div class="creation-type">
@@ -42,7 +42,7 @@
 							</div>
 						}
 					</div>
-					<div class="add-creative-type">
+					<div class="add-creative-type field">
 						<select class="creative-type-tags" id="creative-type-tags">
 							<option value="" disabled selected hidden>Select creative type to add...</option>
 							<option value="Visual Artist">Visual Artist</option>
@@ -63,7 +63,7 @@
 
 		<div class="profile-tags">
 			<h4>My tags</h4>
-			<div class="tags-container">
+			<div class="tags-container field">
 				@foreach (var tag in Model.CurrentUser.Tags.Where(tag => tag.Category == TagCategory.Tool))
 				{
 					<div class="tag-wrapper">
@@ -78,7 +78,7 @@
 			</button>
 			<div class="custom-tag">
 				<label for="tagName">Tag Name</label>
-				<div class="tag-input">
+				<div class="tag-input field">
 					<input type="text" name="tagName" id="tagName" placeholder="Enter tag name..." />
 					<button class="add-button" id="add-custom-tag" type="button">
 						<span></span>
@@ -90,7 +90,7 @@
 
 		<div class="profile-about">
 			<h4>About Me:</h4>
-			<textarea name="aboutInfo" id="aboutInfo" placeholder="Enter something about you...">@Model.CurrentUser.UserDescription</textarea>
+			<textarea id="aboutInfo" placeholder="Enter something about you...">@Model.CurrentUser.UserDescription</textarea>
 		</div>
 
 		<div class="profile-actions">
@@ -107,5 +107,6 @@
 	<script src="~/profile/js/addCustomTag.js"></script>
 	<script src="~/profile/js/addCreativeTypeTag.js"></script>
 	<script src="~/profile/js/uploadImage.js"></script>
+	<script src="~/profile/js/validateEditPage.js"></script>
 }
 

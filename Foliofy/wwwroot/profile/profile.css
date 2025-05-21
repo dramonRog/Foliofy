@@ -20,6 +20,12 @@
 .user-icon {
     width: 80px;
     max-width: 100%;
+    border-radius: 100%;
+    aspect-ratio: 1 / 1;
+}
+
+#iconPreview {
+    aspect-ratio: 1 / 1;
 }
 
 .user-stat {
@@ -303,6 +309,25 @@
     border: 1px solid #004051;
     background-color: #00161E;
     color: #56A4AC;
+}
+
+.field {
+    position: relative;
+}
+
+.field.error input {
+    border-color: #510000;
+}
+
+.warning-message {
+    position: absolute;
+    bottom: -25px;
+    color: #ffd800;
+    margin-bottom: 5px;
+}
+
+.field.warning input, .field.warning select {
+    border-color: #ffd800;
 }
 
 @media (max-width: 1136px) {

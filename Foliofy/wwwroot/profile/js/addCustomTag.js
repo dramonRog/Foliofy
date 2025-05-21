@@ -4,14 +4,15 @@ const token = document.querySelector('input[name="__RequestVerificationToken"]')
 const tagContainer = document.querySelector(".tags-container");
 const removeCustomTags = document.querySelector(".remove-tag");
 
-let addedTags = [];
-let removedTags = [];
+window.addedTags = [];
+window.removedTags = [];
 
 addCustomTag.addEventListener("click", () => {
+    clearWarning(addCustomTag);
     if (customTagName.value === "") {
-        alert("Tag cannot be empty!");
+        displayWarning(addCustomTag, "Tag cannot be empty!");
     } else if (addedTags.find(tag => tag === customTagName.value) !== undefined) {
-        alert("That tag already exists!");
+        displayWarning(addCustomTag, "Tag already exists!")
     } else {
         const formData = new FormData();
         formData.append("__RequestVerificationToken", token.value);
@@ -23,14 +24,14 @@ addCustomTag.addEventListener("click", () => {
         })
         .then(response => response.json())
         .then(resultData => {
-            if (resultData != false) {
+            if (resultData) {
                 addedTags.push(customTagName.value.trim());
                 uppendTagToDocument(customTagName.value);
                 removedTags = removedTags.filter(removeTag => removeTag !== customTagName.value.trim());
+                customTagName.value = "";
             } else {
-                alert("That tag already exists!");
+                displayWarning(addCustomTag, "That tag already exists!");
             }
-            customTagName.value = "";
         })
         .catch(error => {
             console.error("Error: ", error);
@@ -38,6 +39,23 @@ addCustomTag.addEventListener("click", () => {
         });
     }
 });
+
+function clearWarning(element) {
+    element.parentElement.classList.remove("warning");
+    if (element.parentElement.querySelector(".warning-message"))
+        element.parentElement.querySelector(".warning-message").remove();
+}
+
+function displayWarning(field, message) {
+    let warningMessage = document.createElement("div");
+    warningMessage.classList.add("warning-message");
+    warningMessage.textContent = message;
+
+    field.parentElement.classList.add("warning");
+    field.parentElement.append(warningMessage);
+
+    setTimeout(() => clearWarning(field),3000)
+}
 
 removeCustomTags.addEventListener("click", () => {
     const tagContainer = document.querySelectorAll(".tag-wrapper");

@@ -38,7 +38,7 @@ namespace Foliofy.Pages.AccountActions
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                     new Claim(ClaimTypes.Name, User.Username),
-                    new Claim("icons", User.IconPath)
+                    new Claim("icons", user.IconPath)
                 };
 
                 var identity = new ClaimsIdentity(claims, "MyCookieAuth");
