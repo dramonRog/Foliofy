@@ -5,6 +5,7 @@ using Foliofy.DataBase;
 using Foliofy.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Foliofy.Pages.profile
 {
@@ -38,35 +39,6 @@ namespace Foliofy.Pages.profile
             return Page();
         }
 
-        public async Task<IActionResult> OnPostCheckTagAsync(string CustomTagName, string removedTagsList)
-        {
-            var userClaimId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            if (userClaimId == null || !int.TryParse(userClaimId, out int userId))
-                return RedirectToPage("/AccountActions/login");
-
-            string[] removedTags = removedTagsList == null ? Array.Empty<string>() : removedTagsList.Split(',');
-            if (await db.UserTags.AnyAsync(tag => tag.TagName == CustomTagName && tag.UserId == userId
-                && !removedTags.Contains(CustomTagName) && tag.Category == TagCategory.Tool))
-                return new JsonResult(false);
-            return new JsonResult(true);
-        }
-
-        public async Task<IActionResult> OnPostCheckCreativeTypeAsync(string CreativeType, string removeCreativeTagsList)
-        {
-            var userClaimId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            if (userClaimId == null || !int.TryParse(userClaimId, out int userId))
-                return RedirectToPage("/AccountActions/login");
-
-            string[] removeTagsList = removeCreativeTagsList == null ? Array.Empty<string>() : removeCreativeTagsList.Split(',');
-
-            if (await db.UserTags.AnyAsync(tag => tag.TagName == CreativeType && tag.UserId == userId && !removeTagsList.Contains(CreativeType)))
-                return new JsonResult(false);
-            return new JsonResult(true);
-        }
-
-
         [BindProperty]
         public IFormFile? UploadedIcon { get; set; }
         public async Task<IActionResult> OnPostUpdateProfileAsync()
@@ -74,10 +46,8 @@ namespace Foliofy.Pages.profile
             string? Username = Request.Form["Username"];
             string? Email = Request.Form["Email"];
             string? UserDescription = Request.Form["UserDescription"];
-            string? AddCustomTags = Request.Form["AddCustomTags"];
-            string? RemoveCustomTags = Request.Form["RemoveCustomTags"];
-            string? AddCreativeTypes = Request.Form["AddCreativeTypes"];
-            string? RemoveCreativeTypes = Request.Form["RemoveCreativeTypes"];
+            string? CustomTags = Request.Form["CustomTags"];
+            string? CreativeTypes = Request.Form["CreativeTypes"];
 
             var ClaimUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (ClaimUserId == null || !int.TryParse(ClaimUserId, out int userId))
@@ -98,53 +68,29 @@ namespace Foliofy.Pages.profile
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            string[] AddTagList = AddCustomTags == null ? Array.Empty<string>() : AddCustomTags.Split(',');
-            string[] AddCreativeTypeList = AddCreativeTypes == null ? Array.Empty<string>() : AddCreativeTypes.Split(',');
-            string[] RemoveTagList = RemoveCustomTags == null ? Array.Empty<string>() : RemoveCustomTags.Split(',');
-            string[] RemoveCreativeTypeList = RemoveCreativeTypes == null ? Array.Empty<string>() : RemoveCreativeTypes.Split(',');
+            string[] TagList = CustomTags == null || CustomTags == "" ? Array.Empty<string>() : CustomTags.Split(',');
+            string[] CreativeTypeList = CreativeTypes == null || CreativeTypes == "" ? Array.Empty<string>() : CreativeTypes.Split(',');
 
-            if (RemoveCreativeTypeList[0].Trim() != "")
+            db.UserTags.RemoveRange(db.UserTags.Where(tag => tag.UserId == userId));
+            foreach(string creativeType in CreativeTypeList)
             {
-                foreach (string removeCreativeType in RemoveCreativeTypeList)
+                db.UserTags.Add(new UserTag
                 {
-                    var tagToRemove = cookieUser.Tags.FirstOrDefault(tag => tag.TagName == removeCreativeType && tag.Category == TagCategory.CreativeType);
-                    if (tagToRemove != null)
-                        cookieUser.Tags.Remove(tagToRemove);
-                }
+                    TagName = creativeType,
+                    Category = TagCategory.CreativeType,
+                    UserId = userId
+                });
             }
-            if (AddCreativeTypeList[0].Trim() != "") { 
-                foreach (string addCreativeType in AddCreativeTypeList)
-                {
-                    db.UserTags.Add(new UserTag
-                    {
-                        TagName = addCreativeType,
-                        Category = TagCategory.CreativeType,
-                        UserId = cookieUser.Id
-                    });
-                }
-            }
-            if (RemoveTagList[0].Trim() != "")
+            
+            foreach(string customTag in TagList)
             {
-                foreach (string removeTag in RemoveTagList)
+                db.UserTags.Add(new UserTag
                 {
-                    var tagToRemove = cookieUser.Tags.FirstOrDefault(tag => tag.TagName == removeTag && tag.Category == TagCategory.Tool);
-                }
+                    TagName = customTag,
+                    Category = TagCategory.Tool,
+                    UserId = userId
+                });
             }
-            if (AddTagList[0].Trim() != "")
-            {
-                foreach (string addTag in AddTagList)
-                {
-                    //if (addTag.Trim() != "")
-                    //{
-                    db.UserTags.Add(new UserTag
-                    {
-                        TagName = addTag,
-                        Category = TagCategory.Tool,
-                        UserId = cookieUser.Id
-                    });
-                    //}
-                }
-            }           
 
             cookieUser.Username = Username;
             cookieUser.Email = Email;
@@ -179,6 +125,17 @@ namespace Foliofy.Pages.profile
             }
 
             await db.SaveChangesAsync();
+
+            var claims = new List<Claim>() {
+                new Claim(ClaimTypes.NameIdentifier, cookieUser.Id.ToString()),
+                new Claim(ClaimTypes.Name, cookieUser.Username),
+                new Claim("icons", cookieUser.IconPath)
+            };
+
+            var identity = new ClaimsIdentity(claims, "MyCookieAuth");
+            var principal = new ClaimsPrincipal(identity);
+            await HttpContext.SignInAsync("MyCookieAuth", principal);
+
             return new OkObjectResult(true);
         }
     }

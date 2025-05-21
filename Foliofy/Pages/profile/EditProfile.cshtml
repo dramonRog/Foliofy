@@ -104,6 +104,21 @@
 </form>
 
 @section Scripts {
+	<script>
+		let tagsArray = [];
+		let creativeTypesArray = [];
+		@foreach (UserTag tag in Model.CurrentUser.Tags)
+		{
+			if (tag.Category == TagCategory.Tool)
+			{
+				<text>tagsArray.push("@tag.TagName");</text>
+			}
+			else
+			{
+				<text>creativeTypesArray.push("@tag.TagName");</text>
+			}
+		}
+	</script>
 	<script src="~/profile/js/addCustomTag.js"></script>
 	<script src="~/profile/js/addCreativeTypeTag.js"></script>
 	<script src="~/profile/js/uploadImage.js"></script>

@@ -1,7 +1,7 @@
 ﻿.user-preview {
     display: flex;
     align-items: center;
-    gap: 40px;
+    gap: 12px 40px;
     flex-wrap: wrap;
 }
 
@@ -59,12 +59,8 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
     gap: 8px;
-    flex: 0 1 auto;
-    padding: 0 40px;
-    border-left: 2px solid #1D4750;
-    border-right: 2px solid #1D4750;
+    flex-basis: 100%;
 }
 
 .tag {
@@ -90,6 +86,7 @@
     background-color: #E54F00;
     width: 200px;
     transition: background-color .4s ease-in-out;
+    margin: 0 auto;
 }
 
 .user-about {
@@ -335,14 +332,6 @@
         justify-content: flex-start;
     }
 
-    .user-tags {
-        order: 1;
-        border: none;
-        padding: 0;
-        flex: 0 1 100%;
-        justify-content: flex-start;
-    }
-
     .user-action {
         border-left: none;
     }
@@ -360,14 +349,15 @@
     }
 }
 
+@media(max-width: 877px) {
+    .edit-profile {
+        order: 1;
+    }
+}
+
 @media(max-width: 814px) {
     .user-preview {
         row-gap: 15px;
-        justify-content: center;
-    }
-
-    .user-tags {
-        order: 0;
         justify-content: center;
     }
 

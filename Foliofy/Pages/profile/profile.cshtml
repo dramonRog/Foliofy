@@ -40,18 +40,21 @@
 				</div>
 			</div>
 
-			<div class="user-tags">
-				@foreach (UserTag tag in Model.CurrentUser.Tags.Where(tag => tag.Category == TagCategory.CreativeType))
-				{
-					<span class="tag creative">@tag.TagName</span>
-				}
-				@foreach (UserTag tag in Model.CurrentUser.Tags.Where(tag => tag.Category != TagCategory.CreativeType))
-				{
-					<span class="tag">@tag.TagName</span>
-				}
-			</div>
-
 			<a asp-page="EditProfile" class="edit-profile">Edit Profile</a>
+
+			@if(Model.CurrentUser.Tags.Count > 0)
+			{
+				<div class="user-tags">
+					@foreach (UserTag tag in Model.CurrentUser.Tags.Where(tag => tag.Category == TagCategory.CreativeType))
+					{
+						<span class="tag creative">@tag.TagName</span>
+					}
+					@foreach (UserTag tag in Model.CurrentUser.Tags.Where(tag => tag.Category != TagCategory.CreativeType))
+					{
+						<span class="tag">@tag.TagName</span>
+					}
+				</div>
+			}
 		</div>
 		<div class="user-about">
 			<h3 class="user__about-title">About Me:</h3>

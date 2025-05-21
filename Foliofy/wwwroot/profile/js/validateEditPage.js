@@ -19,10 +19,8 @@ form.addEventListener("submit", (e) => {
         formData.append("Username", username.value);
         formData.append("Email", email.value);
         formData.append("UserDescription", about.value);
-        formData.append("AddCustomTags", addedTags.join(','));
-        formData.append("RemoveCustomTags", removedTags.join(','));
-        formData.append("AddCreativeTypes", addCreativeTag.join(','));
-        formData.append("RemoveCreativeTypes", removeCreativeTag.join(','));
+        formData.append("CustomTags", tagsArray.join(','));
+        formData.append("CreativeTypes", creativeTypesArray.join(','));
 
         if (uploadedIcon)
             formData.append("UploadedIcon", uploadedIcon);
@@ -40,8 +38,9 @@ form.addEventListener("submit", (e) => {
                         displayError(username, data.Username);
                     }
                 }
-                else
+                else {
                     window.location.href = "profile";
+                }
             })
             .catch(error => {
                 alert("Something went wrong! Please, try again later.");

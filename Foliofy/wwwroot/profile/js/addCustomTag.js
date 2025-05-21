@@ -1,42 +1,19 @@
 ﻿const addCustomTag = document.querySelector("#add-custom-tag");
 const customTagName = document.querySelector("#tagName");
-const token = document.querySelector('input[name="__RequestVerificationToken"]');
 const tagContainer = document.querySelector(".tags-container");
 const removeCustomTags = document.querySelector(".remove-tag");
 
-window.addedTags = [];
-window.removedTags = [];
 
 addCustomTag.addEventListener("click", () => {
     clearWarning(addCustomTag);
     if (customTagName.value === "") {
         displayWarning(addCustomTag, "Tag cannot be empty!");
-    } else if (addedTags.find(tag => tag === customTagName.value) !== undefined) {
+    } else if (tagsArray.find(tag => tag === customTagName.value) !== undefined) {
         displayWarning(addCustomTag, "Tag already exists!")
     } else {
-        const formData = new FormData();
-        formData.append("__RequestVerificationToken", token.value);
-        formData.append("CustomTagName", customTagName.value.trim());
-        formData.append("removedTagsList", removedTags.join(","));
-        fetch("/profile/EditProfile?handler=CheckTag", {
-            method: "POST",
-            body: formData
-        })
-        .then(response => response.json())
-        .then(resultData => {
-            if (resultData) {
-                addedTags.push(customTagName.value.trim());
-                uppendTagToDocument(customTagName.value);
-                removedTags = removedTags.filter(removeTag => removeTag !== customTagName.value.trim());
-                customTagName.value = "";
-            } else {
-                displayWarning(addCustomTag, "That tag already exists!");
-            }
-        })
-        .catch(error => {
-            console.error("Error: ", error);
-            alert("Something went wrong. Please, try again later");
-        });
+        tagsArray.push(customTagName.value.trim());
+        uppendTagToDocument(customTagName.value);
+        customTagName.value = "";
     }
 });
 
@@ -62,13 +39,9 @@ removeCustomTags.addEventListener("click", () => {
 
     for (let child of tagContainer) {
         if (child.querySelector(".custom-checkbox").classList.contains("checked")) {
-            removedTags.push(child.querySelector(".tag").textContent.trim());
+            tagsArray = tagsArray.filter(tag => tag !== child.querySelector(".tag").textContent.trim());
             child.remove();
         }
-    }
-
-    for (let removeTag of removedTags) {
-        addedTags = addedTags.filter(tag => tag != removeTag);
     }
 })
 
