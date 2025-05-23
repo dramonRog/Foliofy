@@ -10,20 +10,30 @@ namespace Foliofy.DataBase
         public DbSet<User> Users { get; set; }
         public DbSet<Follower> Followers { get; set; }
         public DbSet<UserTag> UserTags { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<ProjectFile> ProjectFiles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           modelBuilder.Entity<Follower>()
-                .HasOne(follower => follower.FollowerUser)
-                .WithMany(user => user.Followings)
-                .HasForeignKey(follower => follower.FollowerId)
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Follower>()
+                .HasOne(f => f.FollowerUser)
+                .WithMany(u => u.Followings)
+                .HasForeignKey(f => f.FollowerId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Follower>()
-                .HasOne(follower => follower.FollowedUser)
-                .WithMany(user => user.Followers)
-                .HasForeignKey(follower => follower.FollowedId)
+                .HasOne(f => f.FollowedUser)
+                .WithMany(u => u.Followers)
+                .HasForeignKey(f => f.FollowedId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<UserTag>()
+            .ToTable(tb => tb.HasCheckConstraint(
+                "CK_UserTag_Association",
+                "([UserId] IS NOT NULL AND [ProjectId] IS NULL) OR ([UserId] IS NULL AND [ProjectId] IS NOT NULL)"
+            ));
         }
     }
 }

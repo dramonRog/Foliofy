@@ -22,5 +22,8 @@ namespace Foliofy.Models
 
         [InverseProperty(nameof(UserTag.User))]
         public ICollection<UserTag> Tags { get; set; } = new List<UserTag>();
+
+        [InverseProperty(nameof(Project.User))]
+        public ICollection<Project> Projects { get; set; } = new List<Project>();
     }
 }
