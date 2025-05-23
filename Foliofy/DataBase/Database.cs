@@ -11,6 +11,7 @@ namespace Foliofy.DataBase
         public DbSet<Follower> Followers { get; set; }
         public DbSet<UserTag> UserTags { get; set; }
         public DbSet<Project> Projects { get; set; }
+        public DbSet<ProjectFile> ProjectFiles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

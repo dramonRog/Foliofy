@@ -77,7 +77,7 @@ namespace Foliofy.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProjectFile",
+                name: "ProjectFiles",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -87,9 +87,9 @@ namespace Foliofy.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProjectFile", x => x.Id);
+                    table.PrimaryKey("PK_ProjectFiles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProjectFile_Projects_ProjectId",
+                        name: "FK_ProjectFiles_Projects_ProjectId",
                         column: x => x.ProjectId,
                         principalTable: "Projects",
                         principalColumn: "Id",
@@ -134,8 +134,8 @@ namespace Foliofy.Migrations
                 column: "FollowerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProjectFile_ProjectId",
-                table: "ProjectFile",
+                name: "IX_ProjectFiles_ProjectId",
+                table: "ProjectFiles",
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
@@ -161,7 +161,7 @@ namespace Foliofy.Migrations
                 name: "Followers");
 
             migrationBuilder.DropTable(
-                name: "ProjectFile");
+                name: "ProjectFiles");
 
             migrationBuilder.DropTable(
                 name: "UserTags");

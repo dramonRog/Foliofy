@@ -96,7 +96,7 @@ namespace Foliofy.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("ProjectFile");
+                    b.ToTable("ProjectFiles");
                 });
 
             modelBuilder.Entity("Foliofy.Models.User", b =>

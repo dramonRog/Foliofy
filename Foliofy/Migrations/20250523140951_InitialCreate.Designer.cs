@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Foliofy.Migrations
 {
     [DbContext(typeof(Database))]
-    [Migration("20250523114043_InitialCreate")]
+    [Migration("20250523140951_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -99,7 +99,7 @@ namespace Foliofy.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("ProjectFile");
+                    b.ToTable("ProjectFiles");
                 });
 
             modelBuilder.Entity("Foliofy.Models.User", b =>
