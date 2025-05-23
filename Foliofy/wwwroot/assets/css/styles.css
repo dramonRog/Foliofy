@@ -1,4 +1,4 @@
-* {
+﻿* {
     box-sizing: border-box;
 }
 
@@ -133,6 +133,7 @@ input::placeholder {
 .nav-link {
     position: relative;
 }
+
 .nav-link.authenticate {
     opacity: 0.7;
 }
@@ -159,6 +160,12 @@ input::placeholder {
 .profile-link {
     position: relative;
     display: block;
+}
+
+.profile-link img {
+    border-radius: 100%;
+    width: 48px;
+    aspect-ratio: 1 / 1;
 }
 
 .profile__toggle {
@@ -397,7 +404,7 @@ input::placeholder {
     background-color: #510000;
 }
 
-.creative-type {
+.creative-type, .project-type {
     position: relative;
 }
 
@@ -430,7 +437,7 @@ input::placeholder {
     transition: transform .3s ease-in-out;
 }
 
-.creative-type.clicked .triangle-img {
+.creative-type.clicked .triangle-img, .project-type.clicked .triangle-img {
     transform: rotate(0);
 }
 
@@ -452,11 +459,11 @@ input::placeholder {
     transform-origin: top;
 }
 
-.creative-type.clicked .select-options {
+.creative-type.clicked .select-options, .project-type.clicked .select-options {
     transform: scaleY(1);
 }
 
-.register-option {
+.register-option, .filter-option {
     position: relative;
     display: flex;
     align-items: center;
@@ -467,11 +474,11 @@ input::placeholder {
     width: 100%;
 }
 
-.register-option span {
+.register-option span, .filter-option span {
     font-size: clamp(0.875rem, 0.676rem + 0.64vw, 1.25rem);
 }
 
-.register-option .img-wrapper {
+.register-option .img-wrapper, .filter-option .img-wrapper {
     width: 44px;
     text-align: center;
 }
@@ -481,7 +488,7 @@ input::placeholder {
     margin: 0 auto;
 }
 
-.register-option::after {
+.register-option::after, .filter-option::after {
     content: '';
     position: absolute;
     top: calc(100% + 2px);
@@ -534,7 +541,7 @@ input::placeholder {
 .modal-register .container, .modal-login .container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    margin-bottom: 40px;
 }
 
 .modal-content.modal .register-illustration, .login-illustration {
@@ -707,6 +714,7 @@ input::placeholder {
     .register-form, .login-form {
         width: 100%;
     }
+
     .login-form {
         flex-basis: auto;
     }
@@ -730,11 +738,11 @@ input::placeholder {
         opacity: 1;
     }
 
-    .register-option:hover {
+    .register-option:hover, .filter-option:hover {
         opacity: 1;
     }
 
-    .register-option:hover::after {
+    .register-option:hover::after, .filter-option:hover::after {
         transform: scale(1);
         transform-origin: left;
     }

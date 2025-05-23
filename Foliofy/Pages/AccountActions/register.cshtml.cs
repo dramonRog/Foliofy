@@ -20,6 +20,9 @@ namespace Foliofy.Pages.AccountActions
         [BindProperty]
         public User User { get; set; }
 
+        [BindProperty]
+        public string CreativeType { get; set; }
+
         public async Task<IActionResult> OnPostRegisterAsync()
         {
             if (await db.Users.AnyAsync(user => user.Username == User.Username))
@@ -35,6 +38,15 @@ namespace Foliofy.Pages.AccountActions
             User.Password = hasher.HashPassword(User, User.Password);
 
             db.Users.Add(User);
+            await db.SaveChangesAsync();
+
+            UserTag userTag = new UserTag
+            {
+                TagName = CreativeType,
+                UserId = User.Id
+            };
+
+            db.UserTags.Add(userTag);
             await db.SaveChangesAsync();
 
             var claims = new List<Claim>

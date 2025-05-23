@@ -1,0 +1,127 @@
+﻿@page
+@model Foliofy.Pages.profile.EditProfileModel
+@using Foliofy.Models;
+
+@section Styles {
+<link rel="stylesheet" href="~/profile/profile.css" />
+}
+
+<form method="post" enctype="multipart/form-data" class="modal-edit" novalidate>
+	<div class="container">
+		@Html.AntiForgeryToken() <!-- It is against CSRF attacks. it creates input with name __RequestVerificationToken type hidden, value will very long and random. We must send this token manually in js -->
+		<h3 class="title-text">Edit profile</h3>
+
+		<div class="profile-info">
+			<div class="profile-icon">
+				<img src="@Url.Content(Model.CurrentUser.IconPath != "" ? Model.CurrentUser.IconPath : "~/assets/images/icons/profile-icon.svg")" alt="User Icon" id="iconPreview" />
+				<input type="file" name="UploadedIcon" id="UploadedIcon" accept=".jpg,.jpeg,.svg,image/jpeg,image/svg+xml" hidden />
+				<button type="button" class="change-icon-btn">Change</button>
+			</div>
+
+			<div class="profile-data">
+				<div class="profile-input field">
+					<label for="username">Username</label>
+					<input type="text" id="username" value="@Model.CurrentUser.Username" placeholder="Enter username..." />
+				</div>
+				<div class="profile-input field">
+					<label for="email">Email address</label>
+					<input type="email" id="email" value="@Model.CurrentUser.Email" placeholder="Enter email..." />
+				</div>
+
+				<div class="creation-type">
+					<h4>Creative Type</h4>
+					<div class="creative-tags-container">
+						@foreach (var creativeType in Model.CurrentUser.Tags.Where(tag => tag.Category == TagCategory.CreativeType))
+						{
+							<div class="creation-type-tag">
+								<span class="creative-tag">
+									<img src="~/assets/images/icons/creativeMinds/people.svg" />
+									@creativeType.TagName.Trim()
+								</span>
+								<button class="remove-btn" type="button"><img src="~/assets/images/icons/edit/remove-icon.svg" /></button>
+							</div>
+						}
+					</div>
+					<div class="add-creative-type field">
+						<select class="creative-type-tags" id="creative-type-tags">
+							<option value="" disabled selected hidden>Select creative type to add...</option>
+							<option value="Visual Artist">Visual Artist</option>
+							<option value="UI/UX Designer">UI/UX Designer</option>
+							<option value="Content Creator">Content Creator</option>
+							<option value="Freelancer / Consultant">Freelancer / Consultant</option>
+						</select>
+						<button class="add-button" id="add-creative-type-tag" type="button">
+							<span></span>
+							<span></span>
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<img src="~/assets/images/img/footer-illustration.png" class="profile-info-illustration" />
+		</div>
+
+		<div class="profile-tags">
+			<h4>My tags</h4>
+			<div class="tags-container field">
+				@foreach (var tag in Model.CurrentUser.Tags.Where(tag => tag.Category == TagCategory.Tool))
+				{
+					<div class="tag-wrapper">
+						<span class="custom-checkbox"><img src="~/assets/images/icons/register/daw.svg" /></span>
+						<span class="tag">@tag.TagName</span>
+					</div>
+				}
+			</div>
+			<button class="remove-tag" type="button">
+				Remove selected
+				<img src="~/assets/images/icons/edit/remove-icon.svg" />
+			</button>
+			<div class="custom-tag">
+				<label for="tagName">Tag Name</label>
+				<div class="tag-input field">
+					<input type="text" name="tagName" id="tagName" placeholder="Enter tag name..." />
+					<button class="add-button" id="add-custom-tag" type="button">
+						<span></span>
+						<span></span>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="profile-about">
+			<h4>About Me:</h4>
+			<textarea id="aboutInfo" placeholder="Enter something about you...">@Model.CurrentUser.UserDescription</textarea>
+		</div>
+
+		<div class="profile-actions">
+			<button type="submit" class="save-profile">
+				<img src="~/assets/images/icons/edit/save-icon.svg" />
+				Save
+			</button>
+			<a asp-page="./profile" class="cancel">Cancel</a>
+		</div>
+	</div>
+</form>
+
+@section Scripts {
+	<script>
+		let tagsArray = [];
+		let creativeTypesArray = [];
+		@foreach (UserTag tag in Model.CurrentUser.Tags)
+		{
+			if (tag.Category == TagCategory.Tool)
+			{
+				<text>tagsArray.push("@tag.TagName");</text>
+			}
+			else
+			{
+				<text>creativeTypesArray.push("@tag.TagName");</text>
+			}
+		}
+	</script>
+	<script src="~/profile/js/addCustomTag.js"></script>
+	<script src="~/profile/js/addCreativeTypeTag.js"></script>
+	<script src="~/profile/js/uploadImage.js"></script>
+	<script src="~/profile/js/validateEditPage.js"></script>
+}
+

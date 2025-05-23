@@ -28,36 +28,36 @@ if (form) {
             formData.append("User.Username", username.value);
             formData.append("User.Email", email.value);
             formData.append("User.Password", password.value);
-            formData.append("User.CreativeType", selectInput.value);
+            formData.append("CreativeType", selectInput.value);
 
             fetch("/AccountActions/register?handler=Register", {
                 method: "POST",
                 body: formData
             })
-                .then(async response => {
-                    const userData = await response.json();
+            .then(async response => {
+                const userData = await response.json();
 
-                    if (!response.ok) {
-                        if (userData.Username != undefined) {
-                            displayError(username, userData.Username);
-                        }
-                        if (userData.Email != undefined) {
-                            displayError(email, userData.Email);
-                        }
+                if (!response.ok) {
+                    if (userData.Username != undefined) {
+                        displayError(username, userData.Username);
                     }
-                    else {
-                        successModal.append(userData.message);
-                        successModal.classList.add("open");
-                        document.body.classList.add("passive");
-                        setTimeout(() => {
-                            close.click();
-                        }, 4000);
+                    if (userData.Email != undefined) {
+                        displayError(email, userData.Email);
                     }
-                })
-                .catch(error => {
-                    console.error("Error: ", error);
-                    alert("An error occurred, please try again later");
-                });
+                }
+                else {
+                    successModal.append(userData.message);
+                    successModal.classList.add("open");
+                    document.body.classList.add("passive");
+                    setTimeout(() => {
+                        close.click();
+                    }, 4000);
+                }
+            })
+            .catch(error => {
+                console.error("Error: ", error);
+                alert("An error occurred, please try again later");
+            });
         }
     });
 
@@ -123,7 +123,7 @@ if (form) {
 }
 close.addEventListener("click", () => {
     setTimeout(() => {
-        window.location.href = "/profile";
+        window.location.href = "/profile/profile";
     }, 500);
 });
 

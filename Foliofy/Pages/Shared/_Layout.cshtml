@@ -5,10 +5,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Foliofy</title>
+    <title>Foliofy</title>
     <link rel="stylesheet" href="~/assets/css/normalize.css">
     <link rel="stylesheet" href="~/assets/css/font.css">
     <link rel="stylesheet" href="~/assets/css/styles.css">
+    <link rel="icon" href="~/page-icon.svg" />
     @RenderSection("Styles", required: false)
 </head>
 <body>
@@ -23,9 +24,9 @@
                     <li class="link__item"><a href="#" class="nav-link">About</a></li>
                 </ul>
                 <div class="profile-link" id="profile-link">
-                    <a asp-page="/profile">
+                    <a asp-page="/profile/profile">
                         @{
-                            var iconPath = @User.FindFirst("icon")?.Value;
+                            var iconPath = @User.FindFirst("icons")?.Value;
                             var defaultIconPath = Url.Content("~/assets/images/icons/profile-icon.svg");
                             iconPath = String.IsNullOrEmpty(iconPath) ? defaultIconPath : iconPath;
                         }
@@ -34,8 +35,8 @@
               
                     <div class="profile__toggle">
                         @if (User.Identity.IsAuthenticated) {
-                            <a asp-page="/profile" class="profile__toggle-link">My Profile</a>
-                            <a asp-page="/profile" class="profile__toggle-link">My Projects</a>
+                            <a asp-page="/profile/profile" class="profile__toggle-link">My Profile</a>
+                            <a asp-page="/profile/profile" class="profile__toggle-link">My Projects</a>
                             <a asp-page="/AccountActions/login" asp-page-handler="Login" class="profile__toggle-link login-link">Switch Account</a>
                             <a asp-page="/AccountActions/logout" asp-page-handler="Logout" class="profile__toggle-link">Logout</a>
                         }
