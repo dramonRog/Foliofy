@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Foliofy.Migrations
 {
     [DbContext(typeof(Database))]
-    [Migration("20250519211248_InitialCreate")]
+    [Migration("20250523150657_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -45,6 +45,61 @@ namespace Foliofy.Migrations
                     b.HasIndex("FollowerId");
 
                     b.ToTable("Followers");
+                });
+
+            modelBuilder.Entity("Foliofy.Models.Project", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CoverImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProjectDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProjectName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("Foliofy.Models.ProjectFile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("ProjectFiles");
                 });
 
             modelBuilder.Entity("Foliofy.Models.User", b =>
@@ -91,18 +146,26 @@ namespace Foliofy.Migrations
                     b.Property<int>("Category")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ProjectId")
+                        .HasColumnType("int");
+
                     b.Property<string>("TagName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ProjectId");
+
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserTags");
+                    b.ToTable("UserTags", t =>
+                        {
+                            t.HasCheckConstraint("CK_UserTag_Association", "([UserId] IS NOT NULL AND [ProjectId] IS NULL) OR ([UserId] IS NULL AND [ProjectId] IS NOT NULL)");
+                        });
                 });
 
             modelBuilder.Entity("Foliofy.Models.Follower", b =>
@@ -124,10 +187,10 @@ namespace Foliofy.Migrations
                     b.Navigation("FollowerUser");
                 });
 
-            modelBuilder.Entity("Foliofy.Models.UserTag", b =>
+            modelBuilder.Entity("Foliofy.Models.Project", b =>
                 {
                     b.HasOne("Foliofy.Models.User", "User")
-                        .WithMany("Tags")
+                        .WithMany("Projects")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -135,11 +198,46 @@ namespace Foliofy.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Foliofy.Models.ProjectFile", b =>
+                {
+                    b.HasOne("Foliofy.Models.Project", "Project")
+                        .WithMany("Files")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Project");
+                });
+
+            modelBuilder.Entity("Foliofy.Models.UserTag", b =>
+                {
+                    b.HasOne("Foliofy.Models.Project", "Project")
+                        .WithMany("Tags")
+                        .HasForeignKey("ProjectId");
+
+                    b.HasOne("Foliofy.Models.User", "User")
+                        .WithMany("Tags")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Project");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Foliofy.Models.Project", b =>
+                {
+                    b.Navigation("Files");
+
+                    b.Navigation("Tags");
+                });
+
             modelBuilder.Entity("Foliofy.Models.User", b =>
                 {
                     b.Navigation("Followers");
 
                     b.Navigation("Followings");
+
+                    b.Navigation("Projects");
 
                     b.Navigation("Tags");
                 });
