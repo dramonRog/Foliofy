@@ -40,8 +40,11 @@
 				</div>
 			</div>
 
-			<a asp-page="EditProfile" class="edit-profile">Edit Profile</a>
-
+			<div class="profile-buttons">
+				<a asp-page="EditProfile" class="edit-profile">Edit Profile</a>
+				<button class="remove-account">Remove Account</button>
+			</div>
+			
 			@if(Model.CurrentUser.Tags.Count > 0)
 			{
 				<div class="user-tags">
@@ -62,3 +65,57 @@
 		</div>
 	</div>
 </section>
+
+<section class="user-projects">
+	<div class="container">
+		<h3>My Projects</h3>
+		<div class="project-stat">
+			<div class="projects-filter">
+				<div class="filter-field select">
+					<div class="project-type">
+						<div class="selected">
+							<span class="selected-value">Filter your projects...</span>
+							<img class="triangle-img" src="~/assets/images/icons/register/triangle.svg" alt="triangle">
+						</div>
+						<ul class="select-options">
+							<li class="filter-option">
+								<div class="img-wrapper">
+									<img src="~/assets/images/icons/projects/public.svg" alt="public icon" class="option-img">
+								</div>
+								<span>Public</span>
+							</li>
+							<li class="filter-option">
+								<div class="img-wrapper">
+									<img src="~/assets/images/icons/projects/private.svg" alt="private icon" class="option-img">
+								</div>
+								<span>Private</span>
+							</li>
+							<li class="filter-option">
+								<div class="img-wrapper">
+									<img src="~/assets/images/icons/projects/all.svg" alt="all icon" class="option-img">
+								</div>
+								<span>All</span>
+							</li>
+						</ul>
+					</div>
+					<input type="hidden" name="projectsFilter" id="projectsFilter">
+				</div>
+			</div>
+			<div class="project-info-part">
+				<img src="~/assets/images/img/projects/project-intro-illustration.png" class="project-illustration" />
+				<div class="general-info">
+					<span>Total Projects: </span>
+					<span>Public Projects: </span>
+					<span>Private Projects: </span>
+					<span>Total likes: </span>
+					<button class="create-project">New Project</button>
+				</div>
+			</div>
+		</div>
+		<div class="user-projects"></div>
+	</div>
+</section>
+
+@section Scripts {
+	<script src="~/profile/js/selectOption.js"></script>
+}
