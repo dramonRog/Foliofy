@@ -1,11 +1,13 @@
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using Foliofy.DataBase;
+using Foliofy.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Foliofy.DataBase;
-using Foliofy.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication;
 
 namespace Foliofy.Pages.profile
 {
@@ -13,10 +15,12 @@ namespace Foliofy.Pages.profile
     public class EditProfileModel : PageModel
     {
         private readonly Database db;
+        private readonly Cloudinary cloudinary;
 
-        public EditProfileModel(Database db)
+        public EditProfileModel(Database db, Cloudinary cloudinary)
         {
             this.db = db;
+            this.cloudinary = cloudinary;
         }
 
         public User CurrentUser { get; set; }
@@ -98,30 +102,26 @@ namespace Foliofy.Pages.profile
 
             if (UploadedIcon != null && UploadedIcon.Length > 0)
             {
-                if (!string.IsNullOrWhiteSpace(cookieUser.IconPath))
+                if (!string.IsNullOrWhiteSpace(cookieUser.IconPath) &&
+                    !cookieUser.IconPath.Contains("profile-icon.svg"))
                 {
-                    var oldIconPath = Path.Combine("wwwroot", cookieUser.IconPath.TrimStart('/'));
+                    var publicId = Path.GetFileNameWithoutExtension(
+                        new Uri(cookieUser.IconPath).AbsolutePath);
 
-                    if (System.IO.File.Exists(oldIconPath))
-                    {
-                        System.IO.File.Delete(oldIconPath);
-                    }
+                    var deleteParams = new DeletionParams($"foliofy/icons/{publicId}");
+                    await cloudinary.DestroyAsync(deleteParams);
                 }
 
-
-                var uploadsFolder = Path.Combine("wwwroot", "uploads", "icons");
-                if (!Directory.Exists(uploadsFolder))
-                    Directory.CreateDirectory(uploadsFolder);
-
-                var uniqueFileName = $"user_{userId}_{Guid.NewGuid()}{Path.GetExtension(UploadedIcon.FileName)}";
-                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                var uploadParams = new ImageUploadParams
                 {
-                    await UploadedIcon.CopyToAsync(fileStream);
-                }
+                    File = new FileDescription(UploadedIcon.FileName, UploadedIcon.OpenReadStream()),
+                    Folder = "foliofy/icons",
+                    PublicId = $"user_{userId}_{Guid.NewGuid()}"
+                };
 
-                cookieUser.IconPath = $"/uploads/icons/{uniqueFileName}";
+                var result = await cloudinary.UploadAsync(uploadParams);
+
+                cookieUser.IconPath = result.SecureUrl.AbsoluteUri;
             }
 
             await db.SaveChangesAsync();
