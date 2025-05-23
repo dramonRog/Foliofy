@@ -13,9 +13,13 @@ namespace Foliofy.Models
         [Key]
         public int Id { get; set; }
         public string TagName { get; set; }
-        [ForeignKey(nameof(User))]
-        public int UserId { get; set; }
-        public User User { get; set; }
         public TagCategory Category { get; set; } = TagCategory.CreativeType;
+
+        [ForeignKey(nameof(User))]
+        public int? UserId { get; set; }
+        public User? User { get; set; }
+        [ForeignKey(nameof(Project))]
+        public int? ProjectId { get; set; }
+        public Project? Project { get; set; }
     }
 }
