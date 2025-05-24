@@ -63,7 +63,7 @@ namespace Foliofy.Pages.profile
 
             if (cookieUser == null)
                 return NotFound();
-
+            
             if (await db.Users.AnyAsync(user => user.Username == Username && user.Id != cookieUser.Id))
                 ModelState.AddModelError("Username", "That username is already taken!");
             if (await db.Users.AnyAsync(user => user.Email == Email && user.Id != cookieUser.Id))
@@ -102,17 +102,13 @@ namespace Foliofy.Pages.profile
 
             if (UploadedIcon != null && UploadedIcon.Length > 0)
             {
-                if (!string.IsNullOrWhiteSpace(cookieUser.IconPath) &&
-                    !cookieUser.IconPath.Contains("profile-icon.svg"))
+                if (!string.IsNullOrWhiteSpace(cookieUser.IconPath))
                 {
-                    var publicId = Path.GetFileNameWithoutExtension(
-                        new Uri(cookieUser.IconPath).AbsolutePath);
-
-                    var deleteParams = new DeletionParams($"foliofy/icons/{publicId}");
-                    await cloudinary.DestroyAsync(deleteParams);
+                    string publicId = Path.GetFileNameWithoutExtension(new Uri(cookieUser.IconPath).AbsolutePath);
+                    DeletionParams deletionParams = new DeletionParams($"foliofy/icons/{publicId}");
+                    await cloudinary.DestroyAsync(deletionParams);
                 }
-
-                var uploadParams = new ImageUploadParams
+                ImageUploadParams uploadParams = new ImageUploadParams
                 {
                     File = new FileDescription(UploadedIcon.FileName, UploadedIcon.OpenReadStream()),
                     Folder = "foliofy/icons",
@@ -120,7 +116,6 @@ namespace Foliofy.Pages.profile
                 };
 
                 var result = await cloudinary.UploadAsync(uploadParams);
-
                 cookieUser.IconPath = result.SecureUrl.AbsoluteUri;
             }
 

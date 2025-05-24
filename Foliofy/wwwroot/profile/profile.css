@@ -378,7 +378,11 @@
     justify-content: center;
 }
 
-
+.create-project {
+    padding: 10px 35px;
+    border-radius: 12px;
+    background-color: #00474F;  
+}
 
 @media (max-width: 1136px) {
     .user-preview {

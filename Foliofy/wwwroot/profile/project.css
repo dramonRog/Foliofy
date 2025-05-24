@@ -1,0 +1,220 @@
+﻿.project-creation {
+    margin-top: 0;
+}
+
+.project-creation h2 {
+    background-color: transparent;
+    padding: 0;
+}
+
+.project-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 30px;
+}
+
+.project-form .field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.project-form .field.files {
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.field.files .uploaded-files {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1 1 auto;
+    max-width: 475px;
+}
+
+.field.files .cover-image {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 0 1 414px;
+    min-width: 100px;
+}
+
+.field.files .cover-image .upload-image-wrapper {
+    padding: 15px;
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    justify-content: center;
+    flex-basis: 224px;
+    border-radius: 5px;
+    border: 1px solid #004051;
+    background-color: #00161E;
+    flex-wrap: wrap;
+}
+
+.action-text {
+    text-align: center;
+}
+
+.upload-action {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.upload-file {
+    color: #56A4AC;
+    background-color: #00161E;
+    border: 1px solid #004051;
+}
+
+.user-tags {
+    align-self: stretch;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    flex-basis: 100%;
+}
+
+.tag {
+    padding: 6px 14px;
+    background-color: #002D3C;
+    color: #64D5DB;
+    font-size: clamp(0.625rem, 0.489rem + 0.68vw, 1rem);
+    font-weight: 700;
+    border-radius: 10px;
+}
+
+.add-button {
+    position: relative;
+    height: 45px;
+    background-color: #00474F;
+    padding: 0;
+}
+
+.add-button span {
+    display: inline-block;
+    width: 25px;
+    height: 5px;
+    background-color: #ffffff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.add-button span:first-child {
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.profile-tags {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    max-width: 582px;
+}
+
+.tag-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.remove-tag {
+    width: fit-content;
+    padding: 10px 35px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background-color: #740000;
+    color: #ffffff;
+}
+
+.field .tag-input {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+.tag-input input {
+    flex: 0 1 480px;
+    min-width: 150px;
+}
+
+.custom-tag {
+    margin-top: 12px;
+}
+
+.access-types {
+    display: flex;
+    gap: 20px;
+}
+
+.access-types .status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.access-types .radio {
+    position: relative;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
+    border: 1px solid #003444;
+}
+
+.access-types .radio::after {
+    content: '';
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+    background-color: #E2651D;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    opacity: 0;
+    transition: opacity .4s ease;
+}
+
+.access-types .status.active .radio::after {
+    opacity: 1;
+}
+
+.save-project {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: #ffffff;
+}
+
+.cancel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    border: 1px solid #004051;
+    background-color: #00161E;
+    color: #56A4AC;
+    padding: 0 25px;
+}
+
+.project-buttons {
+    display: flex;
+    gap: 12px;
+}

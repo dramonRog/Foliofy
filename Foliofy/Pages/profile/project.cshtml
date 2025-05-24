@@ -1,0 +1,82 @@
+﻿@page
+@model Foliofy.Pages.profile.ProjectModel
+
+@section Styles {
+    <link rel="stylesheet" href="~/profile/project.css" />
+}
+
+<section class="project-creation">
+    <div class="container">
+        <h2><span class="title-word-wrapper">Share</span> your project!</h2>
+        <form class="project-form">
+            @Html.AntiForgeryToken()
+            <div class="field">
+                <label for="project-name">Project Name</label>
+                <input type="text" id="project-name" placeholder="Enter project name..." />
+            </div>
+            <div class="field">
+                <label for="project-description">Description</label>
+                <input type="text" id="project-description" placeholder="Enter some description..." />
+            </div>
+            <div class="field files">
+                <div class="uploaded-files">
+                    <span class="upload-title">Upload Files</span>
+                    <button class="upload-file">Upload File</button>
+                    <div class="uploaded-files-container"></div>
+                    <input type="file" id="uploadedFiles" hidden multiple />
+                </div>
+                <div class="cover-image">
+                    <span class="upload-title">Cover Image</span>
+                    <div class="upload-image-wrapper">
+                        <img src="~/assets/images/icons/upload.svg" alt="upload icon"/>
+                        <div class="upload-action">
+                            <span class="action-text">Click to open</span>
+                            <button class="upload-file">Choose File</button>
+                            <input type="file" id="uploadedCover" hidden />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field profile-tags">
+                <h4>Tags</h4>
+                <div class="tags-container field"></div>
+                <button class="remove-tag" type="button">
+                    Remove selected
+                    <img src="~/assets/images/icons/edit/remove-icon.svg" />
+                </button>
+                <div class="custom-tag">
+                    <label for="tagName">Tag Name</label>
+                    <div class="tag-input field">
+                        <input type="text" name="tagName" id="tagName" placeholder="Enter tag name..." />
+                        <button class="add-button" id="add-custom-tag" type="button">
+                            <span></span>
+                            <span></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="field access">
+                <span>Status</span>
+                <div class="access-types">
+                    <div class="status active">
+                        <span class="radio"></span>
+                        <span>Public</span>
+                    </div>
+                    <div class="status">
+                        <span class="radio"></span>
+                        <span>Private</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-buttons">
+                <button type="submit" class="save-project">
+                    <img src="~/assets/images/icons/edit/save-icon.svg" />
+                    Save
+                </button>
+                <a asp-page="./profile" class="cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
+</section>
+
