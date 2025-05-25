@@ -15,6 +15,7 @@
 }
 
 .project-form .field {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -31,7 +32,6 @@
     flex-direction: column;
     gap: 12px;
     flex: 1 1 auto;
-    max-width: 475px;
 }
 
 .field.files .cover-image {
@@ -40,6 +40,7 @@
     gap: 12px;
     flex: 0 1 414px;
     min-width: 100px;
+    max-width: 500px;
 }
 
 .field.files .cover-image .upload-image-wrapper {
@@ -63,6 +64,11 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
+    align-items: center;
+}
+
+.uploaded-image {
+    max-width: 200px;
 }
 
 .upload-file {
@@ -117,8 +123,8 @@
     gap: 16px;
 }
 
-.tags-container {
-    display: flex;
+.tags-container.field {
+    flex-direction: row;
     flex-wrap: wrap;
     gap: 12px 20px;
     max-width: 582px;
@@ -138,6 +144,7 @@
     align-items: center;
     background-color: #740000;
     color: #ffffff;
+    margin-top: 12px;
 }
 
 .field .tag-input {
@@ -153,6 +160,10 @@
 }
 
 .custom-tag {
+    margin-top: 12px;
+}
+
+.field.access {
     margin-top: 12px;
 }
 
@@ -216,5 +227,66 @@
 
 .project-buttons {
     display: flex;
+    gap: 12px;
+}
+
+.field.error input {
+    border-color: #510000;
+}
+
+.warning-message {
+    position: absolute;
+    bottom: -25px;
+    color: #ffd800;
+    margin-bottom: 5px;
+}
+
+.field.warning input, .field.warning select {
+    border-color: #ffd800;
+}
+
+.file-entry {
+    display: flex; 
+    align-items: center;
+    gap: 8px;
+}
+
+.file-entry a {
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid #092F38;
+    color: #519BA3;
+}
+
+.file-entry button {
+    padding: 0;
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    background-color: #B00000;
+    position: relative;
+}
+
+.file-entry span {
+    display: inline-block;
+    height: 4px;
+    width: 20px;
+    background-color: #FFFFFF;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.file-entry span:first-child {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.file-entry span:last-child { 
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.uploaded-files-container {
+    display: flex;
+    flex-wrap: wrap;
     gap: 12px;
 }

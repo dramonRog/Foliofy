@@ -2,13 +2,13 @@
 @model Foliofy.Pages.profile.ProjectModel
 
 @section Styles {
-    <link rel="stylesheet" href="~/profile/project.css" />
+    <link rel="stylesheet" href="~/project/project.css" />
 }
 
 <section class="project-creation">
     <div class="container">
         <h2><span class="title-word-wrapper">Share</span> your project!</h2>
-        <form class="project-form">
+        <form class="project-form" novalidate>
             @Html.AntiForgeryToken()
             <div class="field">
                 <label for="project-name">Project Name</label>
@@ -21,18 +21,18 @@
             <div class="field files">
                 <div class="uploaded-files">
                     <span class="upload-title">Upload Files</span>
-                    <button class="upload-file">Upload File</button>
+                    <button class="upload-file" type="button">Upload File</button>
                     <div class="uploaded-files-container"></div>
                     <input type="file" id="uploadedFiles" hidden multiple />
                 </div>
                 <div class="cover-image">
                     <span class="upload-title">Cover Image</span>
                     <div class="upload-image-wrapper">
-                        <img src="~/assets/images/icons/upload.svg" alt="upload icon"/>
+                        <img src="~/assets/images/icons/upload.svg" class="uploaded-image" alt="upload icon" />
                         <div class="upload-action">
                             <span class="action-text">Click to open</span>
-                            <button class="upload-file">Choose File</button>
-                            <input type="file" id="uploadedCover" hidden />
+                            <button class="upload-file" id="upload-cover" type="button">Choose File</button>
+                            <input type="file" id="uploadedCover" accept=".jpg,.jpeg,.svg,image/jpeg,image/svg+xml" hidden />
                         </div>
                     </div>
                 </div>
@@ -66,9 +66,10 @@
                         <span class="radio"></span>
                         <span>Private</span>
                     </div>
+                    <input type="hidden" id="status" />
                 </div>
             </div>
-            
+
             <div class="project-buttons">
                 <button type="submit" class="save-project">
                     <img src="~/assets/images/icons/edit/save-icon.svg" />
@@ -79,4 +80,12 @@
         </form>
     </div>
 </section>
+
+@section Scripts {
+    <script src="~/project/js/radioButton.js"></script>
+    <script src="~/project/js/tags.js"></script>
+    <script src="~/project/js/uploadCoverImage.js"></script>
+    <script src="~/project/js/uploadFiles.js"></script>
+    <script src="~/project/js/CreateProjectSubmit.js"></script>
+}
 

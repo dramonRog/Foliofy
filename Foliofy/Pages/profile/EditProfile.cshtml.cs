@@ -1,5 +1,3 @@
-using CloudinaryDotNet;
-using CloudinaryDotNet.Actions;
 using Foliofy.DataBase;
 using Foliofy.Models;
 using Microsoft.AspNetCore.Authentication;
@@ -8,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using Supabase;
 
 namespace Foliofy.Pages.profile
 {
@@ -15,12 +14,12 @@ namespace Foliofy.Pages.profile
     public class EditProfileModel : PageModel
     {
         private readonly Database db;
-        private readonly Cloudinary cloudinary;
+        private readonly Client supabase;
 
-        public EditProfileModel(Database db, Cloudinary cloudinary)
+        public EditProfileModel(Database db, Client supabase)
         {
             this.db = db;
-            this.cloudinary = cloudinary;
+            this.supabase = supabase;
         }
 
         public User CurrentUser { get; set; }
@@ -102,22 +101,52 @@ namespace Foliofy.Pages.profile
 
             if (UploadedIcon != null && UploadedIcon.Length > 0)
             {
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 if (!string.IsNullOrWhiteSpace(cookieUser.IconPath))
                 {
-                    string publicId = Path.GetFileNameWithoutExtension(new Uri(cookieUser.IconPath).AbsolutePath);
-                    DeletionParams deletionParams = new DeletionParams($"foliofy/icons/{publicId}");
-                    await cloudinary.DestroyAsync(deletionParams);
-                }
-                ImageUploadParams uploadParams = new ImageUploadParams
-                {
-                    File = new FileDescription(UploadedIcon.FileName, UploadedIcon.OpenReadStream()),
-                    Folder = "foliofy/icons",
-                    PublicId = $"user_{userId}_{Guid.NewGuid()}"
-                };
+                    var uri = new Uri(cookieUser.IconPath);
+                    var oldFileName = Path.GetFileName(uri.LocalPath); 
 
-                var result = await cloudinary.UploadAsync(uploadParams);
-                cookieUser.IconPath = result.SecureUrl.AbsoluteUri;
+                    await supabase.Storage
+                        .From("icons")
+                        .Remove(oldFileName); 
+                }
+
+
+                var fileName = $"user_{userId}_{Guid.NewGuid()}{Path.GetExtension(UploadedIcon.FileName)}";
+
+                using var ms = new MemoryStream();
+                await UploadedIcon.CopyToAsync(ms);
+                var fileBytes = ms.ToArray();
+
+                var uploadResult = await supabase.Storage
+                    .From("icons")
+                    .Upload(fileBytes, fileName, new Supabase.Storage.FileOptions
+                    {
+                        ContentType = UploadedIcon.ContentType
+                    });
+
+                var publicUrl = supabase.Storage.From("icons").GetPublicUrl(fileName);
+                cookieUser.IconPath = publicUrl;
             }
+
 
             await db.SaveChangesAsync();
 

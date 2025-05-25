@@ -1,7 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using Foliofy.DataBase;
-using CloudinaryDotNet;
-using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.EntityFrameworkCore;
+using Supabase;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,14 +20,26 @@ builder.Services.AddAuthentication(options => { options.DefaultScheme = "MyCooki
     options.ExpireTimeSpan = TimeSpan.FromHours(1);
 });
 
-builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
+// Connection to supabase
+builder.Services.Configure<SupabaseSettings>(
+    builder.Configuration.GetSection("Supabase"));
 
-builder.Services.AddSingleton(provider =>
+SupabaseSettings? supabaseSettings = builder.Configuration.GetSection("Supabase").Get<SupabaseSettings>();
+var supabaseClient = new Client(supabaseSettings.Url, supabaseSettings.ServiceRoleKey);
+await supabaseClient.InitializeAsync();
+
+builder.Services.AddSingleton(supabaseClient);
+
+builder.WebHost.ConfigureKestrel(options =>
 {
-    var config = provider.GetRequiredService<IOptions<CloudinarySettings>>().Value;
-    var account = new Account(config.CloudName, config.ApiKey, config.ApiSecret);
-    return new Cloudinary(account);
+    options.Limits.MaxRequestBodySize = 50 * 1024 * 1024;
 });
+
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = 50 * 1024 * 1024; // 50 MB
+});
+
 
 var app = builder.Build();
 
