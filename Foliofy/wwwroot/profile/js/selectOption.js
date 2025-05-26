@@ -13,6 +13,22 @@ filterOptions.forEach(option => {
         selectedOption.innerHTML = option.innerHTML;
         if (!selectedOption.classList.contains("chosen"))
             selectedOption.classList.add("chosen");
-        selectInputOption.value = option.textContent;
+        selectInputOption.value = option.textContent.trim();
+
+        filterProjects(selectInputOption.value);
     })
 })
+
+function filterProjects(filterValue) {
+	const projectItems = document.querySelectorAll(".project-item");
+
+	projectItems.forEach(project => {
+		const status = project.dataset.status.trim();
+
+		if (filterValue === "All" || filterValue === status) {
+			project.style.display = "flex"; 
+		} else {
+			project.style.display = "none";
+		}
+	});
+}

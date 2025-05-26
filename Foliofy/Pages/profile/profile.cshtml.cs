@@ -34,6 +34,10 @@ namespace Foliofy.Pages
                 .Include(user => user.Followers)
                 .Include(user => user.Followings)
                 .Include(user => user.Tags)
+                .Include(user => user.Projects)
+                    .ThenInclude(project => project.Tags)
+                .Include(user => user.Projects)
+                    .ThenInclude(project => project.Files)
                 .FirstOrDefaultAsync(user => user.Id == userId);
 
             if (CurrentUser == null)

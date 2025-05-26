@@ -1,0 +1,53 @@
+﻿@page "{id:int}"
+@model Foliofy.Pages.profile.projectDetailsModel
+
+@section Styles {
+    <link rel="stylesheet" href="~/project/projectDetails.css" />
+}
+
+<section class="project-details">
+    <div class="container">
+        <h2 class="project-title">@Model.Project.ProjectName</h2>
+        <img src="@Model.Project.CoverImage" class="project-cover" />
+        <a href="" class="author">Author: @Model.Project.User.Username</a>
+        <h3>Project Description:</h3>
+        <p class="project-description">
+            @Model.Project.ProjectDescription
+        </p>
+        <div class="tags">
+            @foreach (var tag in Model.Project.Tags)
+            {
+                <span class="tag">@tag.TagName</span>
+            }
+        </div>
+        <div class="files">
+            @foreach (var file in Model.Project.Files)
+            {
+                <a href="@file.Path" target="_blank" class="file-entry"><img src="~/assets/images/icons/file-icon.svg" /><span class="file-name">@System.IO.Path.GetFileName(file.Path)</span></a>
+            }
+        </div>
+
+        @if (Model.CurrentUser.Id == Model.Project.User.Id)
+        {
+            <div class="project-actions">
+                <a href="#" class="edit-project">Edit Project</a>
+                <button class="remove-project" asp-page-handler="RemoveProject" type="submit">
+                    <img src="~/assets/images/icons/edit/remove-icon.svg" />
+                    Remove Project
+                </button>
+            </div>
+        }
+    </div>
+</section>
+
+<div class="modal-warning">
+    <p>Do you want to remove your project?</p>
+    <form class="modal-actions" method="post" asp-route-id="@Model.Project.Id" asp-page-handler="RemoveProject">
+        <button class="agreement" type="submit">Yes</button>
+        <a asp-route-id="@Model.Project.Id" asp-page="projectDetails" class="cancel">No</a>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="~/project/js/modalRemoveProject.js"></script>
+}

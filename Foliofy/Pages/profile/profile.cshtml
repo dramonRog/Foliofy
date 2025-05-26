@@ -112,7 +112,23 @@
 				</div>
 			</div>
 		</div>
-		<div class="user-projects"></div>
+		<div class="projects-container">
+			@foreach(Project project in Model.CurrentUser.Projects)
+			{
+				<a class="project-item" asp-page="projectDetails" asp-route-id="@project.Id" data-status="@project.Status.ToString()">
+					<div class="cover-wrapper">
+						<img src="@project.CoverImage" alt="@project.ProjectName" />
+					</div>
+					<h3>@project.ProjectName</h3>
+					<div class="project-tags">
+						@foreach(UserTag tag in project.Tags)
+						{
+							<span class="tag">@tag.TagName</span>
+						}
+					</div>
+				</a>
+			}
+		</div>
 	</div>
 </section>
 

@@ -100,25 +100,7 @@ namespace Foliofy.Pages.profile
             cookieUser.UserDescription = UserDescription;
 
             if (UploadedIcon != null && UploadedIcon.Length > 0)
-            {
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
+            { 
                 if (!string.IsNullOrWhiteSpace(cookieUser.IconPath))
                 {
                     var uri = new Uri(cookieUser.IconPath);
