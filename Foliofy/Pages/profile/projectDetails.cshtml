@@ -2,14 +2,14 @@
 @model Foliofy.Pages.profile.projectDetailsModel
 
 @section Styles {
-    <link rel="stylesheet" href="~/project/projectDetails.css" />
+    <link rel="stylesheet" href="~/project/project.css" />
 }
 
 <section class="project-details">
     <div class="container">
         <h2 class="project-title">@Model.Project.ProjectName</h2>
         <img src="@Model.Project.CoverImage" class="project-cover" />
-        <a href="" class="author">Author: @Model.Project.User.Username</a>
+        <a href="#" class="author">Author: @Model.Project.User.Username</a>
         <h3>Project Description:</h3>
         <p class="project-description">
             @Model.Project.ProjectDescription
@@ -30,7 +30,7 @@
         @if (Model.CurrentUser.Id == Model.Project.User.Id)
         {
             <div class="project-actions">
-                <a href="#" class="edit-project">Edit Project</a>
+                <a class="edit-project" asp-route-id="@Model.Project.Id" asp-page="project">Edit Project</a>
                 <button class="remove-project" asp-page-handler="RemoveProject" type="submit">
                     <img src="~/assets/images/icons/edit/remove-icon.svg" />
                     Remove Project

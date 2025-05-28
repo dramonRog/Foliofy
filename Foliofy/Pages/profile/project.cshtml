@@ -1,5 +1,6 @@
-﻿@page
+﻿@page "{id?}"
 @model Foliofy.Pages.profile.ProjectModel
+@using Foliofy.Models;
 
 @section Styles {
     <link rel="stylesheet" href="~/project/project.css" />
@@ -12,23 +13,43 @@
             @Html.AntiForgeryToken()
             <div class="field">
                 <label for="project-name">Project Name</label>
-                <input type="text" id="project-name" placeholder="Enter project name..." />
+                <input type="text" id="project-name" placeholder="Enter project name..." value="@(Model.CurrentProject == null ? "" : Model.CurrentProject.ProjectName)"  />
             </div>
             <div class="field">
                 <label for="project-description">Description</label>
-                <input type="text" id="project-description" placeholder="Enter some description..." />
+                <input type="text" id="project-description" placeholder="Enter some description..." value = "@(Model.CurrentProject == null ? "" : Model.CurrentProject.ProjectDescription)" />
             </div>
             <div class="field files">
                 <div class="uploaded-files">
                     <span class="upload-title">Upload Files</span>
                     <button class="upload-file" type="button">Upload File</button>
-                    <div class="uploaded-files-container"></div>
+                    <div class="uploaded-files-container">
+                        @if (Model.CurrentProject != null)
+                        {
+                            <div class="files">
+                                @foreach (var file in Model.CurrentProject.Files)
+                                {
+                                    <div class="file-content">
+                                        <div class="file-entry">
+                                            <img src="~/assets/images/icons/file-icon.svg">
+                                            <a href="@file.Path" target="_blank">@System.IO.Path.GetFileName(file.Path)</a>
+                                        </div>
+                                        <button type="button" class="remove-file" type="button">
+                                            <span></span>
+                                            <span></span>
+                                        </button>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
                     <input type="file" id="uploadedFiles" hidden multiple />
+                    <input type="hidden" name="existingFileNames" id="existingFileNames" />
                 </div>
                 <div class="cover-image">
                     <span class="upload-title">Cover Image</span>
                     <div class="upload-image-wrapper">
-                        <img src="~/assets/images/icons/upload.svg" class="uploaded-image" alt="upload icon" />
+                        <img src="@(Model.CurrentProject == null ? Url.Content("~/assets/images/icons/upload.svg") : Model.CurrentProject.CoverImage)" class="uploaded-image" alt="upload icon" />
                         <div class="upload-action">
                             <span class="action-text">Click to open</span>
                             <button class="upload-file" id="upload-cover" type="button">Choose File</button>
@@ -39,7 +60,18 @@
             </div>
             <div class="field profile-tags">
                 <h4>Tags</h4>
-                <div class="tags-container field"></div>
+                <div class="tags-container field">
+                    @if(Model.CurrentProject != null)
+                    {
+                        @foreach (var tag in Model.CurrentProject.Tags)
+                        {
+                            <div class="tag-wrapper">
+                                <span class="custom-checkbox"><img src="/assets/images/icons/register/daw.svg" /></span>
+                                <span class="tag">@tag.TagName</span>
+                            </div>
+                        }
+                    }
+                </div>
                 <button class="remove-tag" type="button">
                     Remove selected
                     <img src="~/assets/images/icons/edit/remove-icon.svg" />
@@ -57,21 +89,38 @@
             </div>
             <div class="field access">
                 <span>Status</span>
-                <div class="access-types">
-                    <div class="status active">
-                        <span class="radio"></span>
-                        <span>Public</span>
+                @if (Model.CurrentProject == null)
+                {
+                    <div class="access-types">
+                        <div class="status active">
+                            <span class="radio"></span>
+                            <span>Public</span>
+                        </div>
+                        <div class="status">
+                            <span class="radio"></span>
+                            <span>Private</span>
+                        </div>
+                        <input type="hidden" id="status" />
                     </div>
-                    <div class="status">
-                        <span class="radio"></span>
-                        <span>Private</span>
+                }
+                else
+                {
+                    <div class="access-types">
+                        <div class="@(Model.CurrentProject.Status == ProjectAccess.Public ? "status active" : "status")" >
+                            <span class="radio"></span>
+                            <span>Public</span>
+                        </div>
+                        <div class="@(Model.CurrentProject.Status == ProjectAccess.Private ? "status active" : "status")" >
+                            <span class="radio"></span>
+                            <span>Private</span>
+                        </div>
+                        <input type="hidden" id="status" />
                     </div>
-                    <input type="hidden" id="status" />
-                </div>
+                }
             </div>
 
             <div class="project-buttons">
-                <button type="submit" class="save-project">
+                <button type="submit" class="@(Model.CurrentProject == null ? "save-project" : "update-project")">
                     <img src="~/assets/images/icons/edit/save-icon.svg" />
                     Save
                 </button>
@@ -82,6 +131,27 @@
 </section>
 
 @section Scripts {
+    <script>
+        window.tags = [];
+        window.selectedFiles = [];
+        window.IsUploadedCover = @(Model.CurrentProject != null ? "true" : "false");
+        window.fetchLink = "@(Model.CurrentProject == null ? "?handler=CreateProject" : $"?handler=UpdateProject&id={Model.CurrentProject.Id}")";
+
+        @if (Model.CurrentProject != null)
+        {
+            @foreach(var tag in Model.CurrentProject.Tags)
+            {
+                <text>tags.push("@tag.TagName");</text>
+            }
+            @foreach(var file in Model.CurrentProject.Files)
+            {
+                <text>selectedFiles.push({ 
+                    name: "@System.IO.Path.GetFileName(file.Path)", 
+                    path: "@file.Path"
+                });</text>
+            }
+        }
+    </script>
     <script src="~/project/js/radioButton.js"></script>
     <script src="~/project/js/tags.js"></script>
     <script src="~/project/js/uploadCoverImage.js"></script>

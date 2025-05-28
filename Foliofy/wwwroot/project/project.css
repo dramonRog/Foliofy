@@ -21,20 +21,20 @@
     gap: 4px;
 }
 
-.project-form .field.files {
+.project-form .files {
     flex-direction: row;
     gap: 20px;
     flex-wrap: wrap;
 }
 
-.field.files .uploaded-files {
+.files .uploaded-files {
     display: flex;
     flex-direction: column;
     gap: 12px;
     flex: 1 1 auto;
 }
 
-.field.files .cover-image {
+.fifiles .cover-image {
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -68,7 +68,8 @@
 }
 
 .uploaded-image {
-    max-width: 200px;
+    max-width: 300px;
+    max-height: 400px;
 }
 
 .upload-file {
@@ -245,31 +246,23 @@
     border-color: #ffd800;
 }
 
-.file-entry {
-    display: flex; 
-    align-items: center;
-    gap: 8px;
+.file-entry img {
+    max-width: 28px;
 }
-
-.file-entry a {
-    padding: 10px 15px;
-    border-radius: 8px;
-    border: 1px solid #092F38;
-    color: #519BA3;
-}
-
-.file-entry button {
+    
+.remove-file {
     padding: 0;
-    width: 40px;
-    min-width: 40px;
-    height: 40px;
+    width: 30px;
+    min-width: 20px;
+    height: 30px;
     background-color: #B00000;
     position: relative;
+    border-radius: 8px;
 }
 
-.file-entry span {
+.remove-file span {
     display: inline-block;
-    height: 4px;
+    height: 3px;
     width: 20px;
     background-color: #FFFFFF;
     position: absolute;
@@ -277,11 +270,11 @@
     left: 50%;
 }
 
-.file-entry span:first-child {
+.remove-file span:first-child {
     transform: translate(-50%, -50%) rotate(45deg);
 }
 
-.file-entry span:last-child { 
+.remove-file span:last-child { 
     transform: translate(-50%, -50%) rotate(-45deg);
 }
 
@@ -291,3 +284,155 @@
     gap: 12px;
 }
 
+.project-details .container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.author {
+    color: #64D5DB;
+    padding: 8px 14px;
+    border-radius: 10px;
+    background-color: #2E1A47;
+    font-weight: 700;
+    align-self: flex-start;
+    font-size: 16px;
+}
+
+.project-title {
+    font-weight: 500;
+}
+
+.project-description {
+    margin-top: 0;
+    font-size: 18px;
+}
+
+.tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 16px 0;
+    border-top: 1px solid #0a2a35;
+    border-bottom: 1px solid #0a2a35;
+}
+
+.files {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 8px;
+    align-items: flex-start;
+}
+
+.file-entry {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    font-size: 14px;
+    color: #dbdbdb;
+    border-bottom: 1px solid transparent;
+    opacity: .4;
+    transition: border-color .2s ease, opacity .2s ease;
+    align-items: center;
+}
+
+.file-entry .file-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.file-entry img {
+    width: 24px;
+}
+
+.project-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.remove-project {
+    width: auto;
+    padding: 12px 25px;
+    background-color: #740000;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    align-items: center;
+}
+
+.edit-project {
+    color: #ffffff;
+    padding: 12px 25px;
+    background-color: rgb(229, 79, 0);
+    border-radius: 12px;
+    font-size: clamp(1rem, 0.867rem + 0.43vw, 1.25rem);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-warning {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    z-index: 3;
+    background-color: #001F2E;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    padding: 15px;
+}
+
+.modal-warning.open {
+    display: flex;
+}
+
+.modal-warning p {
+    font-size: clamp(0.875rem, 0.466rem + 2.05vw, 2rem);
+}
+
+.modal-warning .modal-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.agreement {
+    background-color: #740000;
+    color: #ffffff;
+    width: auto;
+    padding: 10px 25px
+}
+
+.cancel {
+    padding: 10px 25px;
+    border-radius: 12px;
+    background-color: #00161E;
+}
+
+.file-content {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+@media(max-width: 432px) {
+    .files {
+        align-items: stretch;
+    }
+}
+
+@media(hover: hover) {
+    .file-entry:hover {
+        opacity: .6;
+        border-color: #dbdbdb;
+    }
+} 

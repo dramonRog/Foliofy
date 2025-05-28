@@ -5,6 +5,7 @@ const projectStatus = form.querySelector("#status");
 const projectCover = form.querySelector("#uploadedCover");
 const uploadedFiles = form.querySelector("#uploadedFiles");
 const userToken = document.querySelector('input[name="__RequestVerificationToken"]');
+const existingFileNamesInput = document.querySelector("#existingFileNames");
 
 form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -21,30 +22,45 @@ form.addEventListener("submit", (event) => {
         displayError(uploadedFiles, "Your project must contain at least one file with content!");
     }
 
-    if (projectCover.value.trim() === "") {
+    if (IsUploadedCover === false) {
         displayError(projectCover, "You must send the image!");
     }
 
     if (form.querySelector(".error-message") === null) {
         const formData = new FormData();
+
         formData.append("__RequestVerificationToken", userToken.value);
-        formData.append("projectName", projectName.value);
-        formData.append("projectDescription", projectDescription.value);
-        formData.append("projectStatus", projectStatus.value);
+        formData.append("projectName", projectName.value.trim());
+        formData.append("projectDescription", projectDescription.value.trim());
+        formData.append("projectStatus", projectStatus.value.trim());
         formData.append("projectTags", tags.join(','));
-        formData.append("projectCoverImage", projectCover.files[0]);
+
+        if (projectCover.files.length > 0) {
+            formData.append("projectCoverImage", projectCover.files[0]);
+        }
+
+        if (fetchLink.includes("UpdateProject")) {
+            const existing = selectedFiles
+                .filter(f => !(f instanceof File)) 
+                .map(f => f.name);
+
+            formData.append("existingFileNames", existing.join(','));
+        }
+
         selectedFiles.forEach(file => {
-            formData.append("projectFiles", file);
+            if (file instanceof File) {
+                formData.append("projectFiles", file);
+            }
         });
 
-        fetch("?handler=CreateProject", {
+        fetch(fetchLink, {
             method: "POST",
             body: formData
         })
             .then(async response => {
                 let resultData = await response.json();
                 if (response.ok) {
-                    window.location.href = "profile";
+                    window.location.href = "/profile/profile";
                 }
                 else if (resultData.projectName !== undefined) {
                     displayError(projectName, resultData.projectName);
@@ -65,6 +81,7 @@ function displayError(field, message) {
     field.parentElement.classList.add("error");
     field.parentElement.append(errorMessage);
 }
+
 function clearErrors(form) {
     Array.from(form.querySelectorAll(".error-message")).forEach(error => {
         error.remove();
@@ -73,7 +90,7 @@ function clearErrors(form) {
         if (error.classList.contains("error")) {
             error.classList.remove("error");
         }
-    })
+    });
 }
 
 function validateProjectInput(projectInput) {

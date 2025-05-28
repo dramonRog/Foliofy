@@ -1,6 +1,4 @@
-﻿window.tags = [];
-
-const tagNameInput = document.querySelector("#tagName");
+﻿const tagNameInput = document.querySelector("#tagName");
 const addTag = document.querySelector("#add-custom-tag");
 const tagsContainer = document.querySelector(".tags-container");
 const removeButton = document.querySelector(".remove-tag");

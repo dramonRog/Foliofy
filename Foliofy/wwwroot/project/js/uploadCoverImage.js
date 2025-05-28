@@ -8,7 +8,8 @@ coverInput.addEventListener("change", () => {
     if (coverInput.files[0]) {
         const fileReader = new FileReader();
         fileReader.addEventListener("load", (event) => {
-            uploadedImage.src = event.target.result
+            uploadedImage.src = event.target.result;
+            IsUploadedCover = true;
         });
 
         fileReader.readAsDataURL(coverInput.files[0]);

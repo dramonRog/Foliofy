@@ -1,10 +1,22 @@
 ﻿const fileInput = document.querySelector("#uploadedFiles");
 const uploadBtn = document.querySelector(".uploaded-files .upload-file");
 const filesContainer = document.querySelector(".uploaded-files-container");
+const removeFiles = Array.from(document.querySelectorAll(".remove-file"));
+
+if (removeFiles) {
+    removeFiles.forEach(button => {
+        button.addEventListener("click", () => {
+            const fileBlock = button.closest(".file-content");
+            const fileName = fileBlock.querySelector("a").textContent.trim();
+
+            selectedFiles = selectedFiles.filter(f => f.name !== fileName);
+            fileBlock.remove();
+            updateExistingFileNames();
+        });
+    });
+}
 
 const MAX_TOTAL_SIZE = 45 * 1024 * 1024;
-
-window.selectedFiles = [];
 
 uploadBtn.addEventListener("click", () => fileInput.click());
 
@@ -30,27 +42,34 @@ fileInput.addEventListener("change", () => {
 
 function addFileToDOM(file) {
     const fileBlock = document.createElement("div");
-    fileBlock.className = "file-entry";
+    fileBlock.className = "file-content";
 
-    const fileName = document.createElement("a");
-    fileName.textContent = file.name;
-    fileName.href = URL.createObjectURL(file);
-    fileName.target = "_blank";
+    const objectUrl = URL.createObjectURL(file)
 
-    const removeBtn = document.createElement("button");
-    removeBtn.className = "remove-file";
-    removeBtn.innerHTML = `<span></span>
-                           <span></span>`;
+    fileBlock.innerHTML = `
+        <div class="file-entry">
+            <img src="/assets/images/icons/file-icon.svg">
+            <a href="${objectUrl}" target="_blank">${file.name}</a>
+        </div>
+        <button class="remove-file" type="button">
+            <span></span>
+            <span></span>
+        </button>
+    `
 
-    removeBtn.addEventListener("click", () => {
+    fileBlock.querySelector(".remove-file").addEventListener("click", () => {
         selectedFiles = selectedFiles.filter(f => f !== file);
-        URL.revokeObjectURL(fileName.href);
+        URL.revokeObjectURL(objectUrl);
         fileBlock.remove();
     });
 
-    fileBlock.appendChild(fileName);
-    fileBlock.appendChild(removeBtn);
     filesContainer.appendChild(fileBlock);
 }
 
+function updateExistingFileNames() {
+    const existingFileNames = selectedFiles
+        .filter(f => !(f instanceof File))
+        .map(f => f.name);
 
+    document.querySelector("#existingFileNames").value = existingFileNames.join(",");
+}
